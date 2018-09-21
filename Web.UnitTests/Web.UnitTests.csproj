@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>BuildMonitor.Web.UnitTests</AssemblyName>
+    <RootNamespace>BuildMonitor.Web.UnitTests</RootNamespace>
+    
+    <AssemblyName>BuildMonitor.Web.UnitTests</AssemblyName>
+    <Authors>Gy�rgy Bal�ssy (https://linkedin.com/in/balassy)</Authors>
+    <Company>Gy�rgy Bal�ssy (https://linkedin.com/in/balassy)</Company>
+    <Product>BuildMonitor</Product>
+    <Copyright>(C) Gy�rgy Bal�ssy 2018 (https://linkedin.com/in/balassy)</Copyright>
+    <RepositoryUrl>https://github.com/balassy/BuildMonitor.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/balassy/BuildMonitor</PackageProjectUrl>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageTags>build, monitor, dashboard, TeamCity</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\BuildMonitor.snk</AssemblyOriginatorKeyFile>    
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>W:\System\Desktop\BuildMonitor\Web.UnitTests\BuildMonitor.Web.UnitTests.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Web\Web.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup> 
+     <CodeAnalysisRuleSet>$(SolutionDir)\BuildMonitor.ruleset</CodeAnalysisRuleSet> 
+     <Features>IOperation</Features> 
+     <NoWarn>NU1701</NoWarn>   
+  </PropertyGroup>    
+
+  <ItemGroup>    
+     <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />  
+  </ItemGroup>  
+
+</Project>
