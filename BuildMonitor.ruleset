@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="BuildMonitor Rule Set" Description="Code analysis rules for BuildMonitor project." ToolsVersion="15.0">
+  <IncludeAll Action="Error" />
+
+  <Rules AnalyzerId="StyleCop.CSharp.DocumentationRules" RuleNamespace="StyleCop.CSharp.DocumentationRule">
+    <Rule Id="SA1633" Action="None" />
+    <Rule Id="SA1652" Action="None" />
+  </Rules>
+
+  <Rules AnalyzerId="StyleCop.CSharp.ReadabilityRules" RuleNamespace="StyleCop.CSharp.ReadabilityRules">
+    <Rule Id="SA1121" Action="None" /> <!-- UseBuiltInTypeAlias -->
+  </Rules>
+</RuleSet>

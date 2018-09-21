@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BuildMonitor.Services.Interfaces</name>
+    </assembly>
+    <members>
+        <member name="T:BuildMonitor.Services.Interfaces.Class1">
+            <summary>
+            My sample class
+            </summary>
+        </member>
+    </members>
+</doc>
