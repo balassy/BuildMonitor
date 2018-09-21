@@ -3,8 +3,8 @@
   <IncludeAll Action="Error" />
 
   <Rules AnalyzerId="StyleCop.CSharp.DocumentationRules" RuleNamespace="StyleCop.CSharp.DocumentationRule">
-    <Rule Id="SA1633" Action="None" />
-    <Rule Id="SA1652" Action="None" />
+    <Rule Id="SA1633" Action="None" /> <!-- FileMustHaveHeader -->
+    <Rule Id="SA1652" Action="None" /> <!-- EnableXmlDocumentationOutput -->
   </Rules>
 
   <Rules AnalyzerId="StyleCop.CSharp.ReadabilityRules" RuleNamespace="StyleCop.CSharp.ReadabilityRules">
