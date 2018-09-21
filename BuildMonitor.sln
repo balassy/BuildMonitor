@@ -3,20 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{97978379-D2DC-4061-AA74-8A8849CADDD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{97978379-D2DC-4061-AA74-8A8849CADDD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Interfaces", "Services.Interfaces\Services.Interfaces.csproj", "{209D6E86-190A-4A63-9953-C23D6A5CEFDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Interfaces", "Services.Interfaces\Services.Interfaces.csproj", "{209D6E86-190A-4A63-9953-C23D6A5CEFDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.TeamCity", "Services.TeamCity\Services.TeamCity.csproj", "{CDD21441-B2E7-46D5-9D4E-CB9FE641B807}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.TeamCity", "Services.TeamCity\Services.TeamCity.csproj", "{CDD21441-B2E7-46D5-9D4E-CB9FE641B807}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6D9DBE5-76C2-4AA4-8D67-9CD047482424}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		BuildMonitor.ruleset = BuildMonitor.ruleset
 		BuildMonitor.snk = BuildMonitor.snk
+		LICENSE = LICENSE
+		README.md = README.md
 		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.UnitTests", "Web.UnitTests\Web.UnitTests.csproj", "{E65F8EBA-C6A2-4C6F-B351-FC4D3C91A0D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.UnitTests", "Web.UnitTests\Web.UnitTests.csproj", "{E65F8EBA-C6A2-4C6F-B351-FC4D3C91A0D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
