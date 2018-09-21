@@ -33,6 +33,20 @@ namespace BuildMonitor.Web.Dashboard
         {
           new BuildResultGroupModel
           {
+            Title = "Dummy builds",
+            Builds = new List<BuildResultModel>
+            {
+              new BuildResultModel
+              {
+                Title = "Dummy result",
+                BranchName = buildResult.BranchName,
+                Status = buildResult.Status,
+                TriggeredBy = buildResult.TriggeredBy
+              }
+            }
+          },
+          new BuildResultGroupModel
+          {
             Title = "Frontend builds",
             Builds = new List<BuildResultModel>
             {
@@ -49,20 +63,6 @@ namespace BuildMonitor.Web.Dashboard
               new BuildResultModel { Title = "Service A" },
               new BuildResultModel { Title = "Service B" },
               new BuildResultModel { Title = "Service C" },
-            }
-          },
-          new BuildResultGroupModel
-          {
-            Title = "Dummy builds",
-            Builds = new List<BuildResultModel>
-            {
-              new BuildResultModel
-              {
-                Title = "Dummy result",
-                BranchName = buildResult.BranchName,
-                Status = buildResult.Status,
-                TriggeredBy = buildResult.TriggeredBy
-              }
             }
           }
         }
