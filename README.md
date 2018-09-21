@@ -1,6 +1,8 @@
 # BuildMonitor (Work in Progress!)
 
-> Dashboard to display the status of your builds from your build server (e.g. TeamCity)
+> Dashboard to display the status of your builds from your build server (e.g. TeamCity).
+
+[![Build Status](https://dev.azure.com/balassy/BuildMonitor/_apis/build/status/BuildMonitor%20pipeline)](https://dev.azure.com/balassy/BuildMonitor/_build/latest?definitionId=1)
 
 ## Got feedback?
 
