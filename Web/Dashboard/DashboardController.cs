@@ -11,6 +11,12 @@ namespace BuildMonitor.Web.Dashboard
   public class DashboardController : ControllerBase
   {
     [HttpGet("{id}", Name = "Get")]
+    private readonly IBuildService buildService;
+
+    public DashboardController(IBuildService buildService)
+    {
+      this.buildService = buildService ?? throw new ArgumentException("Please specify the build service for the dashboard controller!", nameof(buildService));
+    }
     [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Required by the runtime.")]
     public DashboardResult Get(string id)
     {

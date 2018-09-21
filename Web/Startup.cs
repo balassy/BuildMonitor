@@ -1,3 +1,5 @@
+using BuildMonitor.Services.Interfaces;
+using BuildMonitor.Services.TeamCity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +37,9 @@ namespace BuildMonitor.Web
       {
         configuration.RootPath = "ClientApp/dist";
       });
+
+      // Set up Dependency Injection.
+      services.AddSingleton<IBuildService, TeamCityBuildService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
