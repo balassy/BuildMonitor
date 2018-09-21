@@ -20,7 +20,7 @@
     <NoWarn>NU1701</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>W:\System\Desktop\BuildMonitor\Services.TeamCity\BuildMonitor.Services.TeamCity.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
