@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace BuildMonitor.Web.Configuration
 {
   public class AppConfigService : IAppConfigService
   {
-    private readonly IConfiguration config;
+    private readonly IOptionsSnapshot<AppConfig> config;
 
-    public AppConfigService(IConfiguration config)
+    public AppConfigService(IOptionsSnapshot<AppConfig> config)
     {
       this.config = config ?? throw new ArgumentNullException(nameof(config), "Please specify the runtime config for the AppConfigService!");
     }
 
-    public IReadOnlyList<DashboardConfig> Dashboards => this.config.Get<AppConfig>().Dashboards.AsReadOnly();
+    public IReadOnlyList<DashboardConfig> Dashboards => this.config.Value.Dashboards.AsReadOnly();
   }
 }
