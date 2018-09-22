@@ -1,5 +1,6 @@
 using BuildMonitor.Services.Interfaces;
 using BuildMonitor.Services.TeamCity;
+using BuildMonitor.Web.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +41,7 @@ namespace BuildMonitor.Web
 
       // Set up Dependency Injection.
       services.AddSingleton<IBuildService, TeamCityBuildService>();
+      services.AddTransient<IAppConfigService, AppConfigService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

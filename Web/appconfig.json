@@ -1,0 +1,76 @@
+{
+  "dashboards": [
+    {
+      "slug": "first",
+      "title": "First Dashboard 3",
+      "groups": [
+        {
+          "title": "First Group A",
+          "builds": [
+            {
+              "title": "Build A",
+              "buildConfigurationId": "build-config-A",
+              "branchName": "branch-A"
+            },
+            {
+              "title": "Build B",
+              "buildConfigurationId": "build-config-B",
+              "branchName": "branch-B"
+            }
+          ]
+        },
+        {
+          "title": "First Group C",
+          "builds": [
+            {
+              "title": "Build D",
+              "buildConfigurationId": "build-config-D",
+              "branchName": "branch-D"
+            },
+            {
+              "title": "Build E",
+              "buildConfigurationId": "build-config-E",
+              "branchName": "branch-E"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "second",
+      "title": "Second Dashboard",
+      "groups": [
+        {
+          "title": "Second Group F",
+          "builds": [
+            {
+              "title": "Build G",
+              "buildConfigurationId": "build-config-G",
+              "branchName": "branch-G"
+            },
+            {
+              "title": "Build H",
+              "buildConfigurationId": "build-config-H",
+              "branchName": "branch-H"
+            }
+          ]
+        },
+        {
+          "title": "First Group I",
+          "builds": [
+            {
+              "title": "Build J",
+              "buildConfigurationId": "build-config-J",
+              "branchName": "branch-J"
+            },
+            {
+              "title": "Build K",
+              "buildConfigurationId": "build-config-K",
+              "branchName": "branch-K"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

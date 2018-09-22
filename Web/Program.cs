@@ -1,5 +1,7 @@
+using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace BuildMonitor.Web
 {
@@ -12,7 +14,14 @@ namespace BuildMonitor.Web
 
     public static IWebHostBuilder CreateWebHostBuilder(string[] args)
     {
-      return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+      IConfigurationRoot config = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appconfig.json", optional: false, reloadOnChange: true)
+        .Build();
+
+      return WebHost.CreateDefaultBuilder(args)
+        .UseConfiguration(config)
+        .UseStartup<Startup>();
     }
   }
 }
