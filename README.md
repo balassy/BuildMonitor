@@ -4,6 +4,13 @@
 
 [![Build Status](https://dev.azure.com/balassy/BuildMonitor/_apis/build/status/BuildMonitor%20pipeline)](https://dev.azure.com/balassy/BuildMonitor/_build/latest?definitionId=1)
 
+## Installation
+
+Set the following **environment variables** to specify the connection to your build server:
+- `BUILDMONITOR__HOST`, e.g. `server.example.com:8080`
+- `BUILDMONITOR__USERNAME`, e.g. `myuser`
+- `BUILDMONITOR__PASSWORD`, e.g. `mypassword`
+
 ## Got feedback?
 
 Your feedback is more than welcome, please send your suggestions, feature requests or bug reports as [Github issues](https://github.com/balassy/BuildMonitor/issues).
@@ -16,4 +23,4 @@ Thanks for your help in making this project better!
 
 ## About the author
 
-This project is created and maintaned by [György Balássy](https://linkedin.com/in/balassy).
+This project is created and maintaned by [GyÃ¶rgy BalÃ¡ssy](https://linkedin.com/in/balassy).
