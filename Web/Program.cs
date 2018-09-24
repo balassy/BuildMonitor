@@ -17,6 +17,7 @@ namespace BuildMonitor.Web
       IConfigurationRoot config = new ConfigurationBuilder()
         .SetBasePath(Directory.GetCurrentDirectory())
         .AddJsonFile("appconfig.json", optional: false, reloadOnChange: true)
+        .AddEnvironmentVariables("BUILDMONITOR__")
         .Build();
 
       return WebHost.CreateDefaultBuilder(args)

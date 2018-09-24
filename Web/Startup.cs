@@ -40,7 +40,9 @@ namespace BuildMonitor.Web
         configuration.RootPath = "ClientApp/dist";
       });
 
+      // Set up configuration handling.
       services.Configure<AppConfig>(this.Configuration.GetSection("AppConfig"));
+      services.Configure<ConnectionConfig>(this.Configuration.GetSection("BUILDMONITOR"));
 
       // Set up Dependency Injection.
       services.AddSingleton<IBuildService, TeamCityBuildService>();
