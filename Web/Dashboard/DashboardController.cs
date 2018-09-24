@@ -5,6 +5,7 @@ using System.Linq;
 using BuildMonitor.Services.Interfaces;
 using BuildMonitor.Web.Configuration;
 using BuildMonitor.Web.Dashboard.Models;
+using BuildMonitor.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +18,13 @@ namespace BuildMonitor.Web.Dashboard
   {
     private readonly IBuildService buildService;
     private readonly IAppConfigService config;
+    private readonly ITimestampConverter timestampConverter;
 
-    public DashboardController(IBuildService buildService, IAppConfigService config)
+    public DashboardController(IBuildService buildService, IAppConfigService config, ITimestampConverter timestampConverter)
     {
       this.buildService = buildService ?? throw new ArgumentNullException(nameof(buildService), "Please specify the build service for the dashboard controller!");
       this.config = config ?? throw new ArgumentNullException(nameof(config), "Please specify the application configuration for the dashboard controller!");
+      this.timestampConverter = timestampConverter ?? throw new ArgumentNullException(nameof(timestampConverter), "Please specify the timestamp converter for the dashboard controller!");
     }
 
     [HttpGet("{slug}", Name = "Get")]
@@ -86,7 +89,7 @@ namespace BuildMonitor.Web.Dashboard
             Status = buildResult.Status,
             TriggeredBy = buildResult.TriggeredBy,
             BuildId = buildResult.BuildId,
-            CompletedTimestamp = buildResult.CompletedTimestamp
+            CompletedTimestampHumanized = this.timestampConverter.ConvertToHumanFriendlyString(buildResult.CompletedTimestamp, isUtcDate: true)
           };
 
           groupResultModel.Builds.Add(buildResultModel);

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using BuildMonitor.Services.Interfaces;
 using BuildMonitor.Web.Configuration;
 using BuildMonitor.Web.Dashboard;
 using BuildMonitor.Web.Dashboard.Models;
+using BuildMonitor.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -31,9 +33,12 @@ namespace BuildMonitor.Web.UnitTests
       var configServiceMock = new Mock<IAppConfigService>();
       configServiceMock.Setup(m => m.Dashboards).Returns(this.testDashboardConfigs);
 
+      var timestampConverterMock = new Mock<ITimestampConverter>();
+      timestampConverterMock.Setup(m => m.ConvertToHumanFriendlyString(It.IsAny<DateTime>(), It.IsAny<bool>())).Returns(TestDataGenerator.GetTimestamp());
+
       this.buildServiceMock = new Mock<IBuildService>();
       this.buildServiceMock.Setup(m => m.GetLastBuildStatus(It.IsAny<string>(), It.IsAny<string>())).Returns(this.testBuildResult);
-      this.controller = new DashboardController(this.buildServiceMock.Object, configServiceMock.Object);
+      this.controller = new DashboardController(this.buildServiceMock.Object, configServiceMock.Object, timestampConverterMock.Object);
     }
 
     [TestMethod]
@@ -72,7 +77,7 @@ namespace BuildMonitor.Web.UnitTests
           BuildResult buildResult = buildResults[$"{groupConfig.Title}-{buildConfig.Title}-{buildConfig.BuildConfigurationId}-{buildConfig.BranchName}"];
           Assert.AreEqual(buildResult.Status, buildModel.Status);
           Assert.AreEqual(buildResult.BuildId, buildModel.BuildId);
-          Assert.AreEqual(buildResult.CompletedTimestamp, buildModel.CompletedTimestamp);
+          Assert.AreNotEqual(buildResult.CompletedTimestamp.ToString(CultureInfo.CurrentCulture), buildModel.CompletedTimestampHumanized, "The timestamp must be humanized!");
         }
       }
     }

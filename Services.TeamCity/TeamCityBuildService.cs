@@ -4,7 +4,7 @@ using BuildMonitor.Services.Interfaces;
 namespace BuildMonitor.Services.TeamCity
 {
   /// <summary>
-  /// My sample class.
+  /// The TeamCity specific implementation.
   /// </summary>
   public class TeamCityBuildService : IBuildService
   {
@@ -14,7 +14,7 @@ namespace BuildMonitor.Services.TeamCity
       {
         BranchName = "Dummy branch name",
         BuildId = "Dummy666",
-        CompletedTimestamp = DateTime.Now,
+        CompletedTimestamp = DateTime.Now.AddHours(-5),
         Status = BuildStatus.Passed,
         TriggeredBy = "Git"
       };

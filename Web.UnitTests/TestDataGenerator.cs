@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using Bogus;
 using BuildMonitor.Services.Interfaces;
 using BuildMonitor.Web.Configuration;
@@ -35,6 +36,11 @@ namespace BuildMonitor.Web.UnitTests
         .RuleFor(r => r.Groups, f => groupConfig.Generate(2));
 
       return dashboardConfig.Generate(3).ToArray();
+    }
+
+    public static string GetTimestamp()
+    {
+      return new Faker().Date.Past().ToString(CultureInfo.CurrentCulture);
     }
 
     private static string GetBranchName(Faker faker)
