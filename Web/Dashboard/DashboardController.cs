@@ -5,6 +5,7 @@ using System.Linq;
 using BuildMonitor.Services.Interfaces;
 using BuildMonitor.Web.Configuration;
 using BuildMonitor.Web.Dashboard.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuildMonitor.Web.Dashboard
@@ -24,10 +25,17 @@ namespace BuildMonitor.Web.Dashboard
     }
 
     [HttpGet("{slug}", Name = "Get")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Required by the runtime.")]
-    public DashboardResultModel Get(string slug)
+    public ActionResult<DashboardResultModel> Get(string slug)
     {
-      DashboardConfig dashboard = this.config.Dashboards.First(d => d.Slug == slug);
+      DashboardConfig dashboard = this.config.Dashboards.FirstOrDefault(d => d.Slug == slug);
+
+      if (dashboard == null)
+      {
+        return this.NotFound("The specified dashboard cannot be found!");
+      }
 
       BuildResult buildResult = this.buildService.GetLastBuildStatus("DummyBuildConfigurationId", "DummyBranchName");
 

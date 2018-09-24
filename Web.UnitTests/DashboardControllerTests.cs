@@ -44,5 +44,13 @@ namespace BuildMonitor.Web.UnitTests
       Assert.AreEqual(this.testBuildResult.Status, returnedBuildResult.Status);
       Assert.AreEqual(this.testBuildResult.TriggeredBy, returnedBuildResult.TriggeredBy);
     }
+
+    [TestMethod]
+    public void ShouldReturnNotFoundForUnknownDashboardSlug()
+    {
+      string dashboardSlug = "NOT_EXISTS";
+      ActionResult result = this.controller.Get(dashboardSlug).Result;
+      Assert.IsInstanceOfType(result, typeof(NotFoundObjectResult));
+    }
   }
 }
