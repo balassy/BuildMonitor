@@ -26,62 +26,74 @@ namespace BuildMonitor.Web.Dashboard
 
     [HttpGet("{slug}", Name = "Get")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Required by the runtime.")]
     public ActionResult<DashboardResultModel> Get(string slug)
     {
-      DashboardConfig dashboard = this.config.Dashboards.FirstOrDefault(d => d.Slug == slug);
+      if (String.IsNullOrEmpty(slug))
+      {
+        return this.BadRequest("Please specify the dashboard!");
+      }
 
-      if (dashboard == null)
+      DashboardConfig dashboardConfig = this.GetDashboardConfig(slug);
+
+      if (dashboardConfig == null)
       {
         return this.NotFound("The specified dashboard cannot be found!");
       }
 
-      BuildResult buildResult = this.buildService.GetLastBuildStatus("DummyBuildConfigurationId", "DummyBranchName");
+      DashboardResultModel result = this.GetBuildResults(dashboardConfig);
+      return result;
+    }
 
-      DashboardResultModel resultModel = new DashboardResultModel
+    private DashboardConfig GetDashboardConfig(string slug)
+    {
+      return String.IsNullOrEmpty(slug)
+        ? null
+        : this.config.Dashboards.FirstOrDefault(d => d.Slug == slug);
+    }
+
+    private DashboardResultModel GetBuildResults(DashboardConfig dashboardConfig)
+    {
+      if (dashboardConfig == null)
       {
-        Title = dashboard.Title,
-        Groups = new List<BuildResultGroupModel>
-        {
-          new BuildResultGroupModel
-          {
-            Title = "Dummy builds",
-            Builds = new List<BuildResultModel>
-            {
-              new BuildResultModel
-              {
-                Title = "Dummy result",
-                BranchName = buildResult.BranchName,
-                Status = buildResult.Status,
-                TriggeredBy = buildResult.TriggeredBy
-              }
-            }
-          },
-          new BuildResultGroupModel
-          {
-            Title = "Frontend builds",
-            Builds = new List<BuildResultModel>
-            {
-              new BuildResultModel { Title = "Component A" },
-              new BuildResultModel { Title = "Component B" },
-              new BuildResultModel { Title = "Component C" },
-            }
-          },
-          new BuildResultGroupModel
-          {
-            Title = "Backend builds",
-            Builds = new List<BuildResultModel>
-            {
-              new BuildResultModel { Title = "Service A" },
-              new BuildResultModel { Title = "Service B" },
-              new BuildResultModel { Title = "Service C" },
-            }
-          }
-        }
+        throw new ArgumentNullException(nameof(dashboardConfig), "Please specify the dashboard configuration!");
+      }
+
+      DashboardResultModel dashboardResultModel = new DashboardResultModel
+      {
+        Title = dashboardConfig.Title,
+        Groups = new List<BuildResultGroupModel>()
       };
 
-      return resultModel;
+      foreach (var groupConfig in dashboardConfig.Groups)
+      {
+        var groupResultModel = new BuildResultGroupModel
+        {
+          Title = groupConfig.Title,
+          Builds = new List<BuildResultModel>()
+        };
+
+        foreach (var buildConfig in groupConfig.Builds)
+        {
+          BuildResult buildResult = this.buildService.GetLastBuildStatus(buildConfig.BuildConfigurationId, buildConfig.BranchName);
+
+          var buildResultModel = new BuildResultModel
+          {
+            Title = buildConfig.Title,
+            BranchName = buildConfig.BranchName,
+            Status = buildResult.Status,
+            TriggeredBy = buildResult.TriggeredBy
+          };
+
+          groupResultModel.Builds.Add(buildResultModel);
+        }
+
+        dashboardResultModel.Groups.Add(groupResultModel);
+      }
+
+      return dashboardResultModel;
     }
   }
 }
