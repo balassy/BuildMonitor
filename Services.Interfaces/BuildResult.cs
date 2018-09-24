@@ -10,7 +10,7 @@ namespace BuildMonitor.Services.Interfaces
     /// <summary>
     /// Gets or sets the unique identifier of the build.
     /// </summary>
-    public string Id { get; set; }
+    public string BuildId { get; set; }
 
     /// <summary>
     /// Gets or sets whether the build has completed successfully, failed or still running.

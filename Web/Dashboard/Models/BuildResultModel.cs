@@ -12,6 +12,10 @@ namespace BuildMonitor.Web.Dashboard.Models
     [JsonConverter(typeof(StringEnumConverter))]
     public BuildStatus Status { get; set; }
 
+    public string BuildId { get; set; }
+
+    public DateTime CompletedTimestamp { get; set; }
+
     public string BranchName { get; set; }
 
     public string TriggeredBy { get; set; }

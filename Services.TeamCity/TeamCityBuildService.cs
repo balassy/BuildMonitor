@@ -13,7 +13,7 @@ namespace BuildMonitor.Services.TeamCity
       return new BuildResult
       {
         BranchName = "Dummy branch name",
-        Id = "Dummy666",
+        BuildId = "Dummy666",
         CompletedTimestamp = DateTime.Now,
         Status = BuildStatus.Passed,
         TriggeredBy = "Git"

@@ -84,7 +84,9 @@ namespace BuildMonitor.Web.Dashboard
             Title = buildConfig.Title,
             BranchName = buildConfig.BranchName,
             Status = buildResult.Status,
-            TriggeredBy = buildResult.TriggeredBy
+            TriggeredBy = buildResult.TriggeredBy,
+            BuildId = buildResult.BuildId,
+            CompletedTimestamp = buildResult.CompletedTimestamp
           };
 
           groupResultModel.Builds.Add(buildResultModel);

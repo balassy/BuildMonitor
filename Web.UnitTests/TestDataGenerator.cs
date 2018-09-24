@@ -11,9 +11,10 @@ namespace BuildMonitor.Web.UnitTests
     {
       var result = new Faker<BuildResult>("en")
         .RuleFor(r => r.BranchName, f => f.Lorem.Word())
-        .RuleFor(r => r.Id, f => f.Lorem.Word())
+        .RuleFor(r => r.BuildId, f => f.Lorem.Word())
         .RuleFor(r => r.Status, f => f.PickRandom<BuildStatus>())
-        .RuleFor(r => r.TriggeredBy, f => f.Person.FullName);
+        .RuleFor(r => r.TriggeredBy, f => f.Person.FullName)
+        .RuleFor(r => r.CompletedTimestamp, f => f.Date.Recent());
       return result.Generate();
     }
 

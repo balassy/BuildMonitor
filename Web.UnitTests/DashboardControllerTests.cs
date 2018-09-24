@@ -71,6 +71,8 @@ namespace BuildMonitor.Web.UnitTests
 
           BuildResult buildResult = buildResults[$"{groupConfig.Title}-{buildConfig.Title}-{buildConfig.BuildConfigurationId}-{buildConfig.BranchName}"];
           Assert.AreEqual(buildResult.Status, buildModel.Status);
+          Assert.AreEqual(buildResult.BuildId, buildModel.BuildId);
+          Assert.AreEqual(buildResult.CompletedTimestamp, buildModel.CompletedTimestamp);
         }
       }
     }
