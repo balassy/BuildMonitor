@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using BuildMonitor.Services.Interfaces;
 
 namespace BuildMonitor.Web.Configuration
 {
-  public class ConnectionConfig
+  public class ConnectionConfig : IConnectionParams
   {
     [Required]
     public string Host { get; set; }

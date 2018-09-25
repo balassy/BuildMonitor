@@ -80,7 +80,7 @@ namespace BuildMonitor.Web.Dashboard
 
         foreach (var buildConfig in groupConfig.Builds)
         {
-          BuildResult buildResult = this.buildService.GetLastBuildStatus(buildConfig.BuildConfigurationId, buildConfig.BranchName);
+          BuildResult buildResult = this.buildService.GetLastBuildStatus(this.config.Connection, buildConfig.BuildConfigurationId, buildConfig.BranchName);
 
           var buildResultModel = new BuildResultModel
           {
