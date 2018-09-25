@@ -19,28 +19,24 @@ namespace BuildMonitor.Web.UnitTests
       return result.Generate();
     }
 
-    public static DashboardConfig[] GetDashboardConfigs()
+    public static DashboardConfig GetDashboardConfig()
     {
-      var buildConfig = new Faker<BuildConfig>()
-        .RuleFor(r => r.Title, f => TestDataGenerator.GetTitle(f))
-        .RuleFor(r => r.BranchName, f => TestDataGenerator.GetBranchName(f))
-        .RuleFor(r => r.BuildConfigurationId, f => TestDataGenerator.GetBuildConfigurationId(f));
-
-      var groupConfig = new Faker<GroupConfig>()
-        .RuleFor(r => r.Title, f => TestDataGenerator.GetTitle(f))
-        .RuleFor(r => r.Builds, f => buildConfig.Generate(3));
-
-      var dashboardConfig = new Faker<DashboardConfig>()
-        .RuleFor(r => r.Title, f => string.Join(" ", f.Lorem.Words()))
-        .RuleFor(r => r.Slug, f => f.Lorem.Slug())
-        .RuleFor(r => r.Groups, f => groupConfig.Generate(2));
-
-      return dashboardConfig.Generate(3).ToArray();
+      return TestDataGenerator.GetDashboardConfigFaker().Generate();
     }
 
-    public static string GetFinishDate()
+    public static DashboardConfig[] GetDashboardConfigs()
+    {
+      return TestDataGenerator.GetDashboardConfigFaker().Generate(3).ToArray();
+    }
+
+    public static string GetFinishDateHumanized()
     {
       return new Faker().Date.Past().ToString(CultureInfo.CurrentCulture);
+    }
+
+    public static string GetSlug()
+    {
+      return new Faker().Lorem.Slug();
     }
 
     private static string GetBranchName(Faker faker)
@@ -56,6 +52,25 @@ namespace BuildMonitor.Web.UnitTests
     private static string GetTitle(Faker faker)
     {
       return string.Join(" ", faker.Lorem.Words());
+    }
+
+    private static Faker<DashboardConfig> GetDashboardConfigFaker()
+    {
+      var buildConfig = new Faker<BuildConfig>()
+        .RuleFor(r => r.Title, f => TestDataGenerator.GetTitle(f))
+        .RuleFor(r => r.BranchName, f => TestDataGenerator.GetBranchName(f))
+        .RuleFor(r => r.BuildConfigurationId, f => TestDataGenerator.GetBuildConfigurationId(f));
+
+      var groupConfig = new Faker<GroupConfig>()
+        .RuleFor(r => r.Title, f => TestDataGenerator.GetTitle(f))
+        .RuleFor(r => r.Builds, f => buildConfig.Generate(3));
+
+      var dashboardConfig = new Faker<DashboardConfig>()
+        .RuleFor(r => r.Title, f => string.Join(" ", f.Lorem.Words()))
+        .RuleFor(r => r.Slug, f => TestDataGenerator.GetSlug())
+        .RuleFor(r => r.Groups, f => groupConfig.Generate(2));
+
+      return dashboardConfig;
     }
   }
 }

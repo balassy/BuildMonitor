@@ -1,6 +1,7 @@
 using BuildMonitor.Services.Interfaces;
 using BuildMonitor.Services.TeamCity;
 using BuildMonitor.Web.Configuration;
+using BuildMonitor.Web.Dashboard;
 using BuildMonitor.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,6 +49,7 @@ namespace BuildMonitor.Web
       services.AddSingleton<IBuildService, TeamCityBuildService>();
       services.AddTransient<IAppConfigService, AppConfigService>();
       services.AddSingleton<IDateConverter, HumanizedDateConverter>();
+      services.AddTransient<IDashboardService, DashboardService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
