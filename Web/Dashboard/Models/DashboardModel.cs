@@ -3,11 +3,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BuildMonitor.Web.Dashboard.Models
 {
-  public class BuildResultGroupModel
+  public class DashboardModel
   {
     public string Title { get; set; }
 
     [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Required for JSON serialization.")]
-    public List<BuildResultModel> Builds { get; set; }
+    public List<GaugeGroupModel> Groups { get; set; }
   }
 }

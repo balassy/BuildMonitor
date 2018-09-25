@@ -32,7 +32,7 @@ namespace BuildMonitor.Web.Dashboard
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Required by the runtime.")]
-    public ActionResult<DashboardResultModel> Get(string slug)
+    public ActionResult<DashboardModel> Get(string slug)
     {
       if (String.IsNullOrEmpty(slug))
       {
@@ -46,7 +46,7 @@ namespace BuildMonitor.Web.Dashboard
         return this.NotFound("The specified dashboard cannot be found!");
       }
 
-      DashboardResultModel result = this.GetBuildResults(dashboardConfig);
+      DashboardModel result = this.GetBuildResults(dashboardConfig);
       return result;
     }
 
@@ -57,25 +57,25 @@ namespace BuildMonitor.Web.Dashboard
         : this.config.Dashboards.FirstOrDefault(d => d.Slug == slug);
     }
 
-    private DashboardResultModel GetBuildResults(DashboardConfig dashboardConfig)
+    private DashboardModel GetBuildResults(DashboardConfig dashboardConfig)
     {
       if (dashboardConfig == null)
       {
         throw new ArgumentNullException(nameof(dashboardConfig), "Please specify the dashboard configuration!");
       }
 
-      DashboardResultModel dashboardResultModel = new DashboardResultModel
+      DashboardModel dashboardResultModel = new DashboardModel
       {
         Title = dashboardConfig.Title,
-        Groups = new List<BuildResultGroupModel>()
+        Groups = new List<GaugeGroupModel>()
       };
 
       foreach (var groupConfig in dashboardConfig.Groups)
       {
-        var groupResultModel = new BuildResultGroupModel
+        var gaugeGroupModel = new GaugeGroupModel
         {
           Title = groupConfig.Title,
-          Builds = new List<BuildResultModel>()
+          Gauges = new List<GaugeModel>()
         };
 
         foreach (var buildConfig in groupConfig.Builds)
@@ -84,7 +84,7 @@ namespace BuildMonitor.Web.Dashboard
 
           if (buildResult != null)
           {
-            var buildResultModel = new BuildResultModel
+            var gaugeModel = new GaugeModel
             {
               Title = buildConfig.Title,
               BranchName = buildConfig.BranchName,
@@ -95,11 +95,11 @@ namespace BuildMonitor.Web.Dashboard
               FinishDateHumanized = this.dateConverter.ConvertToHumanFriendlyString(buildResult.FinishDate, isUtcDate: true)
             };
 
-            groupResultModel.Builds.Add(buildResultModel);
+            gaugeGroupModel.Gauges.Add(gaugeModel);
           }
         }
 
-        dashboardResultModel.Groups.Add(groupResultModel);
+        dashboardResultModel.Groups.Add(gaugeGroupModel);
       }
 
       return dashboardResultModel;

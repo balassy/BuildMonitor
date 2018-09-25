@@ -57,28 +57,28 @@ namespace BuildMonitor.Web.UnitTests
         }
       }
 
-      ActionResult<DashboardResultModel> result = this.controller.Get(testDashboardConfig.Slug);
+      ActionResult<DashboardModel> result = this.controller.Get(testDashboardConfig.Slug);
 
-      DashboardResultModel dashboardModel = result.Value;
+      DashboardModel dashboardModel = result.Value;
       Assert.AreEqual(testDashboardConfig.Title, dashboardModel.Title);
       for (int groupIndex = 0; groupIndex < dashboardModel.Groups.Count; groupIndex++)
       {
         GroupConfig groupConfig = testDashboardConfig.Groups[groupIndex];
-        BuildResultGroupModel groupModel = dashboardModel.Groups[groupIndex];
+        GaugeGroupModel groupModel = dashboardModel.Groups[groupIndex];
         Assert.AreEqual(groupConfig.Title, groupModel.Title);
 
-        for (int buildIndex = 0; buildIndex < groupModel.Builds.Count; buildIndex++)
+        for (int gaugeIndex = 0; gaugeIndex < groupModel.Gauges.Count; gaugeIndex++)
         {
-          BuildConfig buildConfig = groupConfig.Builds[buildIndex];
-          BuildResultModel buildModel = groupModel.Builds[buildIndex];
-          Assert.AreEqual(buildConfig.Title, buildModel.Title);
-          Assert.AreEqual(buildConfig.BranchName, buildModel.BranchName);
+          BuildConfig buildConfig = groupConfig.Builds[gaugeIndex];
+          GaugeModel gaugeModel = groupModel.Gauges[gaugeIndex];
+          Assert.AreEqual(buildConfig.Title, gaugeModel.Title);
+          Assert.AreEqual(buildConfig.BranchName, gaugeModel.BranchName);
 
           BuildResult buildResult = buildResults[$"{groupConfig.Title}-{buildConfig.Title}-{buildConfig.BuildConfigurationId}-{buildConfig.BranchName}"];
-          Assert.AreEqual(buildResult.Status, buildModel.Status);
-          Assert.AreEqual(buildResult.BuildId, buildModel.BuildId);
-          Assert.AreEqual(buildResult.BuildNumber, buildModel.BuildNumber);
-          Assert.AreNotEqual(buildResult.FinishDate.ToString(CultureInfo.CurrentCulture), buildModel.FinishDateHumanized, "The finish date must be humanized!");
+          Assert.AreEqual(buildResult.Status, gaugeModel.Status);
+          Assert.AreEqual(buildResult.BuildId, gaugeModel.BuildId);
+          Assert.AreEqual(buildResult.BuildNumber, gaugeModel.BuildNumber);
+          Assert.AreNotEqual(buildResult.FinishDate.ToString(CultureInfo.CurrentCulture), gaugeModel.FinishDateHumanized, "The finish date must be humanized!");
         }
       }
     }

@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 
 namespace BuildMonitor.Web.Dashboard.Models
 {
-  public class BuildResultModel
+  public class GaugeModel
   {
     public string Title { get; set; }
 
