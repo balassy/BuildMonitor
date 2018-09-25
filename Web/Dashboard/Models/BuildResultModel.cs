@@ -14,7 +14,9 @@ namespace BuildMonitor.Web.Dashboard.Models
 
     public string BuildId { get; set; }
 
-    public string CompletedTimestampHumanized { get; set; }
+    public string BuildNumber { get; set; }
+
+    public string FinishDateHumanized { get; set; }
 
     public string BranchName { get; set; }
 

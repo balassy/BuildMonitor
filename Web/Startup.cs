@@ -47,7 +47,7 @@ namespace BuildMonitor.Web
       // Set up Dependency Injection.
       services.AddSingleton<IBuildService, TeamCityBuildService>();
       services.AddTransient<IAppConfigService, AppConfigService>();
-      services.AddSingleton<ITimestampConverter, HumanizerTimestampConverter>();
+      services.AddSingleton<IDateConverter, HumanizedDateConverter>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

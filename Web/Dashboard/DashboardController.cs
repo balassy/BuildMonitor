@@ -18,13 +18,13 @@ namespace BuildMonitor.Web.Dashboard
   {
     private readonly IBuildService buildService;
     private readonly IAppConfigService config;
-    private readonly ITimestampConverter timestampConverter;
+    private readonly IDateConverter dateConverter;
 
-    public DashboardController(IBuildService buildService, IAppConfigService config, ITimestampConverter timestampConverter)
+    public DashboardController(IBuildService buildService, IAppConfigService config, IDateConverter dateConverter)
     {
       this.buildService = buildService ?? throw new ArgumentNullException(nameof(buildService), "Please specify the build service for the dashboard controller!");
       this.config = config ?? throw new ArgumentNullException(nameof(config), "Please specify the application configuration for the dashboard controller!");
-      this.timestampConverter = timestampConverter ?? throw new ArgumentNullException(nameof(timestampConverter), "Please specify the timestamp converter for the dashboard controller!");
+      this.dateConverter = dateConverter ?? throw new ArgumentNullException(nameof(dateConverter), "Please specify the date converter for the dashboard controller!");
     }
 
     [HttpGet("{slug}", Name = "Get")]
@@ -91,7 +91,8 @@ namespace BuildMonitor.Web.Dashboard
               Status = buildResult.Status,
               TriggeredBy = buildResult.TriggeredBy,
               BuildId = buildResult.BuildId,
-              CompletedTimestampHumanized = this.timestampConverter.ConvertToHumanFriendlyString(buildResult.CompletedTimestamp, isUtcDate: true)
+              BuildNumber = buildResult.BuildNumber,
+              FinishDateHumanized = this.dateConverter.ConvertToHumanFriendlyString(buildResult.FinishDate, isUtcDate: true)
             };
 
             groupResultModel.Builds.Add(buildResultModel);

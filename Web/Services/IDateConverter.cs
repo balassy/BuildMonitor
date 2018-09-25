@@ -2,7 +2,7 @@
 
 namespace BuildMonitor.Web.Services
 {
-  public interface ITimestampConverter
+  public interface IDateConverter
   {
     string ConvertToHumanFriendlyString(DateTime timestamp, bool isUtcDate);
   }

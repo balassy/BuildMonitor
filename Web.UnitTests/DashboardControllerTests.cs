@@ -33,8 +33,8 @@ namespace BuildMonitor.Web.UnitTests
       var configServiceMock = new Mock<IAppConfigService>();
       configServiceMock.Setup(m => m.Dashboards).Returns(this.testDashboardConfigs);
 
-      var timestampConverterMock = new Mock<ITimestampConverter>();
-      timestampConverterMock.Setup(m => m.ConvertToHumanFriendlyString(It.IsAny<DateTime>(), It.IsAny<bool>())).Returns(TestDataGenerator.GetTimestamp());
+      var timestampConverterMock = new Mock<IDateConverter>();
+      timestampConverterMock.Setup(m => m.ConvertToHumanFriendlyString(It.IsAny<DateTime>(), It.IsAny<bool>())).Returns(TestDataGenerator.GetFinishDate());
 
       this.buildServiceMock = new Mock<IBuildService>();
       this.buildServiceMock.Setup(m => m.GetLastBuildStatus(It.IsAny<IConnectionParams>(), It.IsAny<string>(), It.IsAny<string>())).Returns(this.testBuildResult);
@@ -77,7 +77,8 @@ namespace BuildMonitor.Web.UnitTests
           BuildResult buildResult = buildResults[$"{groupConfig.Title}-{buildConfig.Title}-{buildConfig.BuildConfigurationId}-{buildConfig.BranchName}"];
           Assert.AreEqual(buildResult.Status, buildModel.Status);
           Assert.AreEqual(buildResult.BuildId, buildModel.BuildId);
-          Assert.AreNotEqual(buildResult.CompletedTimestamp.ToString(CultureInfo.CurrentCulture), buildModel.CompletedTimestampHumanized, "The timestamp must be humanized!");
+          Assert.AreEqual(buildResult.BuildNumber, buildModel.BuildNumber);
+          Assert.AreNotEqual(buildResult.FinishDate.ToString(CultureInfo.CurrentCulture), buildModel.FinishDateHumanized, "The finish date must be humanized!");
         }
       }
     }

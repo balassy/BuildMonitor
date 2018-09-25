@@ -46,9 +46,10 @@ namespace BuildMonitor.Services.TeamCity
       {
         BranchName = branchName,
         BuildId = build.Id,
-        CompletedTimestamp = build.FinishDate,
-        Status = build.Status.Equals("passed", StringComparison.OrdinalIgnoreCase) ? BuildStatus.Passed : BuildStatus.Failed,
-        TriggeredBy = build.Triggered.User.Name
+        BuildNumber = build.Number,
+        FinishDate = build.FinishDate,
+        Status = build.Status.Equals("SUCCESS", StringComparison.OrdinalIgnoreCase) ? BuildStatus.Success : BuildStatus.Failed,
+        TriggeredBy = build.Triggered?.User?.Name
       };
     }
   }

@@ -3,7 +3,7 @@ using Humanizer;
 
 namespace BuildMonitor.Web.Services
 {
-  public class HumanizerTimestampConverter : ITimestampConverter
+  public class HumanizedDateConverter : IDateConverter
   {
     public string ConvertToHumanFriendlyString(DateTime timestamp, bool isUtcDate)
     {

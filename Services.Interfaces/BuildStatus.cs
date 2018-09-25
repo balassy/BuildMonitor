@@ -11,7 +11,7 @@ namespace BuildMonitor.Services.Interfaces
     /// <summary>
     /// The build has been successfully completed.
     /// </summary>
-    Passed,
+    Success,
 
     /// <summary>
     /// The build is still running.

@@ -8,9 +8,14 @@ namespace BuildMonitor.Services.Interfaces
   public class BuildResult
   {
     /// <summary>
-    /// Gets or sets the unique identifier of the build.
+    /// Gets or sets the unique internal identifier of the build (e.g. "1475634").
     /// </summary>
     public string BuildId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the custom, public, visible identifier of the build (e.g. "1.4.13.1-beta").
+    /// </summary>
+    public string BuildNumber { get; set; }
 
     /// <summary>
     /// Gets or sets whether the build has completed successfully, failed or still running.
@@ -25,7 +30,7 @@ namespace BuildMonitor.Services.Interfaces
     /// <summary>
     /// Gets or sets the date and time when the build has completed, or <c>null</c>, if the build is still running.
     /// </summary>
-    public DateTime CompletedTimestamp { get; set; }
+    public DateTime FinishDate { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the person or service who initiated the build.
