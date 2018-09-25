@@ -82,17 +82,20 @@ namespace BuildMonitor.Web.Dashboard
         {
           BuildResult buildResult = this.buildService.GetLastBuildStatus(this.config.Connection, buildConfig.BuildConfigurationId, buildConfig.BranchName);
 
-          var buildResultModel = new BuildResultModel
+          if (buildResult != null)
           {
-            Title = buildConfig.Title,
-            BranchName = buildConfig.BranchName,
-            Status = buildResult.Status,
-            TriggeredBy = buildResult.TriggeredBy,
-            BuildId = buildResult.BuildId,
-            CompletedTimestampHumanized = this.timestampConverter.ConvertToHumanFriendlyString(buildResult.CompletedTimestamp, isUtcDate: true)
-          };
+            var buildResultModel = new BuildResultModel
+            {
+              Title = buildConfig.Title,
+              BranchName = buildConfig.BranchName,
+              Status = buildResult.Status,
+              TriggeredBy = buildResult.TriggeredBy,
+              BuildId = buildResult.BuildId,
+              CompletedTimestampHumanized = this.timestampConverter.ConvertToHumanFriendlyString(buildResult.CompletedTimestamp, isUtcDate: true)
+            };
 
-          groupResultModel.Builds.Add(buildResultModel);
+            groupResultModel.Builds.Add(buildResultModel);
+          }
         }
 
         dashboardResultModel.Groups.Add(groupResultModel);
