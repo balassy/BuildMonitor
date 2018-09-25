@@ -1,5 +1,3 @@
-using BuildMonitor.Services.Interfaces;
-using BuildMonitor.Services.TeamCity;
 using BuildMonitor.Web.Configuration;
 using BuildMonitor.Web.Dashboard;
 using BuildMonitor.Web.Services;
@@ -10,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using TeamCity = BuildMonitor.Services.TeamCity;
 
 namespace BuildMonitor.Web
 {
@@ -41,15 +40,7 @@ namespace BuildMonitor.Web
         configuration.RootPath = "ClientApp/dist";
       });
 
-      // Set up configuration handling.
-      services.Configure<AppConfig>(this.Configuration.GetSection("AppConfig"));
-      services.Configure<ConnectionConfig>(this.Configuration.GetSection("BUILDMONITOR"));
-
-      // Set up Dependency Injection.
-      services.AddSingleton<IBuildService, TeamCityBuildService>();
-      services.AddTransient<IAppConfigService, AppConfigService>();
-      services.AddSingleton<IDateConverter, HumanizedDateConverter>();
-      services.AddTransient<IDashboardService, DashboardService>();
+      this.ConfigureDependencyInjection(services);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +78,20 @@ namespace BuildMonitor.Web
           spa.UseAngularCliServer(npmScript: "start");
         }
       });
+    }
+
+    private void ConfigureDependencyInjection(IServiceCollection services)
+    {
+      // Set up configuration handling.
+      services.Configure<AppConfig>(this.Configuration.GetSection("AppConfig"));
+      services.Configure<ConnectionConfig>(this.Configuration.GetSection("BUILDMONITOR"));
+      services.AddTransient<IAppConfigService, AppConfigService>();
+
+      // Set up Dependency Injection.
+      services.AddTransient<IDashboardService, DashboardService>();
+      services.AddSingleton<IDateConverter, HumanizedDateConverter>();
+
+      TeamCity.Startup.Configure(services);
     }
 
 #pragma warning restore CA1822 // MarkMembersAsStatic
