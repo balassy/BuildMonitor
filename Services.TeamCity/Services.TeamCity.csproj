@@ -49,7 +49,7 @@
   <PropertyGroup> 
      <CodeAnalysisRuleSet>$(SolutionDir)\BuildMonitor.ruleset</CodeAnalysisRuleSet> 
      <Features>IOperation</Features> 
-     <NoWarn>NU1701</NoWarn>   
+     <NoWarn>NU1701, CS8002</NoWarn>   
   </PropertyGroup>    
 
   <ItemGroup>    
