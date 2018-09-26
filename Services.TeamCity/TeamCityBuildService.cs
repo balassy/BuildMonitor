@@ -25,11 +25,6 @@ namespace BuildMonitor.Services.TeamCity
         throw new ArgumentNullException(nameof(buildConfigurationId), "Please specify the build configuration ID!");
       }
 
-      if (String.IsNullOrEmpty(branchName))
-      {
-        throw new ArgumentNullException(nameof(branchName), "Please specify the name of the branch!");
-      }
-
       TeamCityClient client = new TeamCityClient(connectionParams.Host, useSsl: true);
 
       if (String.IsNullOrEmpty(connectionParams.Username))
@@ -41,10 +36,14 @@ namespace BuildMonitor.Services.TeamCity
         client.Connect(connectionParams.Username, connectionParams.Password);
       }
 
-      List<string> locatorParams = new List<string>
+      // Add branch filter if specified.
+      List<string> locatorParams = new List<string>();
+      if (!String.IsNullOrEmpty(branchName))
       {
-        $"branch:{branchName}"
-      };
+        locatorParams.Add($"branch:{branchName}");
+      }
+
+      // Define the list of fields that should be returned by the TeamCity API.
       BuildField buildFields = BuildField.WithFields(
         id: true,
         number: true,
@@ -64,6 +63,8 @@ namespace BuildMonitor.Services.TeamCity
             name: true,
             username: true))));
       BuildsField buildsFields = BuildsField.WithFields(buildFields);
+
+      // Get the last build of the specified build configuration on the given branch.
       Build build = client.Builds.GetFields(buildsFields.ToString()).LastBuildByBuildConfigId(buildConfigurationId, locatorParams);
 
       if (build == null)
