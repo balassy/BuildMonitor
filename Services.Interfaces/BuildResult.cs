@@ -41,5 +41,10 @@ namespace BuildMonitor.Services.Interfaces
     /// Gets or sets the name of the person who authored the last change in the build.
     /// </summary>
     public string LastChangeBy { get; set; }
+
+    /// <summary>
+    /// Gets or sets the information about the test runs in this build.
+    /// </summary>
+    public TestResults Tests { get; set; }
   }
 }

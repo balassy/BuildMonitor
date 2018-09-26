@@ -23,5 +23,11 @@ namespace BuildMonitor.Web.Dashboard.Models
     public string TriggeredBy { get; set; }
 
     public string LastChangeBy { get; set; }
+
+    public int PassedTestCount { get; set; }
+
+    public int FailedTestCount { get; set; }
+
+    public int IgnoredTestCount { get; set; }
   }
 }

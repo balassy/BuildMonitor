@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using BuildMonitor.Services.Interfaces;
 using TeamCitySharp;
@@ -25,7 +26,7 @@ namespace BuildMonitor.Services.TeamCity
         throw new ArgumentNullException(nameof(buildConfigurationId), "Please specify the build configuration ID!");
       }
 
-      TeamCityClient client = new TeamCityClient(connectionParams.Host, useSsl: true);
+      ITeamCityClient client = new TeamCityClient(connectionParams.Host, useSsl: true);
 
       if (String.IsNullOrEmpty(connectionParams.Username))
       {
@@ -34,6 +35,40 @@ namespace BuildMonitor.Services.TeamCity
       else
       {
         client.Connect(connectionParams.Username, connectionParams.Password);
+      }
+
+      Build build = TeamCityBuildService.GetLastBuild(client, buildConfigurationId, branchName);
+
+      if (build == null)
+      {
+        return null;
+      }
+
+      TestResults testResults = TeamCityBuildService.GetTestResults(client, build.Id);
+
+      return new BuildResult
+      {
+        BranchName = branchName,
+        BuildId = build.Id,
+        BuildNumber = build.Number,
+        FinishDate = build.FinishDate,
+        Status = TeamCityBuildService.GetStatus(build),
+        TriggeredBy = TeamCityBuildService.GetTriggeredBy(build),
+        LastChangeBy = TeamCityBuildService.GetLastChangeBy(build),
+        Tests = testResults
+      };
+    }
+
+    private static Build GetLastBuild(ITeamCityClient client, string buildConfigurationId, string branchName)
+    {
+      if (client == null)
+      {
+        throw new ArgumentNullException(nameof(client), "Please specify the TeamCity client!");
+      }
+
+      if (String.IsNullOrEmpty(buildConfigurationId))
+      {
+        throw new ArgumentNullException(nameof(buildConfigurationId), "Please specify the build configuration ID!");
       }
 
       // Add branch filter if specified.
@@ -67,21 +102,7 @@ namespace BuildMonitor.Services.TeamCity
       // Get the last build of the specified build configuration on the given branch.
       Build build = client.Builds.GetFields(buildsFields.ToString()).LastBuildByBuildConfigId(buildConfigurationId, locatorParams);
 
-      if (build == null)
-      {
-        return null;
-      }
-
-      return new BuildResult
-      {
-        BranchName = branchName,
-        BuildId = build.Id,
-        BuildNumber = build.Number,
-        FinishDate = build.FinishDate,
-        Status = TeamCityBuildService.GetStatus(build),
-        TriggeredBy = TeamCityBuildService.GetTriggeredBy(build),
-        LastChangeBy = TeamCityBuildService.GetLastChangeBy(build)
-      };
+      return build;
     }
 
     private static BuildStatus GetStatus(Build build)
@@ -126,6 +147,41 @@ namespace BuildMonitor.Services.TeamCity
       }
 
       return null;
+    }
+
+    private static TestResults GetTestResults(ITeamCityClient client, string buildId)
+    {
+      if (client == null)
+      {
+        throw new ArgumentNullException(nameof(client), "Please specify the TeamCity client!");
+      }
+
+      if (String.IsNullOrEmpty(buildId))
+      {
+        throw new ArgumentNullException(nameof(buildId), "Please specify the build ID!");
+      }
+
+      TestResults results = new TestResults();
+      List<Property> statistics = client.Statistics.GetByBuildId(buildId);
+      foreach (Property property in statistics)
+      {
+        if (property.Name == "PassedTestCount")
+        {
+          results.PassedCount = Int32.Parse(property.Value, CultureInfo.InvariantCulture);
+        }
+
+        if (property.Name == "FailedTestCount")
+        {
+          results.FailedCount = Int32.Parse(property.Value, CultureInfo.InvariantCulture);
+        }
+
+        if (property.Name == "IgnoredTestCount")
+        {
+          results.IgnoredCount = Int32.Parse(property.Value, CultureInfo.InvariantCulture);
+        }
+      }
+
+      return results;
     }
   }
 }

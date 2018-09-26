@@ -67,7 +67,10 @@ namespace BuildMonitor.Web.Dashboard
               Status = buildResult.Status,
               TriggeredBy = buildResult.TriggeredBy,
               LastChangeBy = buildResult.LastChangeBy,
-              FinishDateHumanized = this.dateConverter.ConvertToHumanFriendlyString(buildResult.FinishDate, isUtcDate: true)
+              FinishDateHumanized = this.dateConverter.ConvertToHumanFriendlyString(buildResult.FinishDate, isUtcDate: true),
+              PassedTestCount = buildResult.Tests.PassedCount,
+              FailedTestCount = buildResult.Tests.FailedCount,
+              IgnoredTestCount = buildResult.Tests.IgnoredCount
             };
 
             gaugeGroupModel.Gauges.Add(gaugeModel);
