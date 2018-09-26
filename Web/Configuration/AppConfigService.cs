@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace BuildMonitor.Web.Configuration

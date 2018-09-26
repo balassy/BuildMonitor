@@ -28,10 +28,17 @@ namespace BuildMonitor.Services.TeamCity
         throw new ArgumentNullException(nameof(branchName), "Please specify the name of the branch!");
       }
 
-      var client = new TeamCityClient(connectionParams.Host, useSsl: true);
-      client.Connect(connectionParams.Username, connectionParams.Password);
+      TeamCityClient client = new TeamCityClient(connectionParams.Host, useSsl: true);
 
       var locatorParams = new List<string>
+      if (String.IsNullOrEmpty(connectionParams.Username))
+      {
+        client.ConnectAsGuest();
+      }
+      else
+      {
+        client.Connect(connectionParams.Username, connectionParams.Password);
+      }
       {
         $"branch:{branchName}"
       };
