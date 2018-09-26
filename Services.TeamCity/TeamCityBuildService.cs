@@ -102,13 +102,18 @@ namespace BuildMonitor.Services.TeamCity
         return triggeredByUser;
       }
 
-      return "Unknown";
+      return null;
     }
 
     private static string GetLastChangeBy(Build build)
     {
-      Change lastChange = build.Changes.Change.OrderByDescending(c => c.Date).First();
-      string lastChangeUser = lastChange?.User?.Name;
+      Change lastChange = build.Changes.Change.OrderByDescending(c => c.Date).FirstOrDefault();
+      if (lastChange == null)
+      {
+        return null;
+      }
+
+      string lastChangeUser = lastChange.User?.Name;
       if (!string.IsNullOrEmpty(lastChangeUser))
       {
         return lastChangeUser;
@@ -120,7 +125,7 @@ namespace BuildMonitor.Services.TeamCity
         return lastChangeUsername;
       }
 
-      return "Unknown";
+      return null;
     }
   }
 }
