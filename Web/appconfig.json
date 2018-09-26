@@ -1,0 +1,99 @@
+{
+  "appConfig": {
+    /* Test projects from https://teamcity.jetbrains.com/?guest=1 */
+    "dashboards": [
+      {
+        "slug": "oss",
+        "title": "Open-source projects",
+        "groups": [
+          {
+            "title": "Eclipse",
+            "builds": [
+              {
+                "title": "Check Style",
+                "buildConfigurationId": "OpenSourceProjects_EclipseCollections_CheckStyle",
+                "branchName": "master"
+              },
+              {
+                "title": "Compile, Test",
+                "buildConfigurationId": "OpenSourceProjects_EclipseCollections_CompileTest",
+                "branchName": "master"
+              },
+              {
+                "title": "Nightly Coverage",
+                "buildConfigurationId": "OpenSourceProjects_EclipseCollections_NightlyCoverage",
+                "branchName": "master"
+              }
+            ]
+          },
+          {
+            "title": "Storybook",
+            "builds": [
+              {
+                "title": "Angular",
+                "buildConfigurationId": "OpenSourceProjects_Storybook_Angular",
+                "branchName": "master"
+              },
+              {
+                "title": "Build",
+                "buildConfigurationId": "OpenSourceProjects_Storybook_Build_2",
+                "branchName": "master"
+              },
+              {
+                "title": "Examples",
+                "buildConfigurationId": "OpenSourceProjects_Storybook_Examples",
+                "branchName": "master"
+              }
+            ]
+          },
+          {
+            "title": "EasyHttp",
+            "builds": [
+              {
+                "title": "PR Build",
+                "buildConfigurationId": "EasyHttp_EasyHttpPrBuild",
+                "branchName": "develop"
+              },
+              {
+                "title": "Release Build",
+                "buildConfigurationId": "bt464",
+                "branchName": "master"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "plugins",
+        "title": "TeamCity Plugins",
+        "groups": [
+          {
+            "title": "TeamCity Plugins by JetBrains",
+            "builds": [
+              {
+                "title": ".NET CLI for 2018.1.x",
+                "buildConfigurationId": "TeamCityPluginsByJetBrains_DotnetCorePlugin_NetCliFor20181",
+                "branchName": "master"
+              },
+              {
+                "title": "Azure Marketplace Build",
+                "buildConfigurationId": "TeamCityPluginsByJetBrains_AzureSupport_AzureCloudPackage_Build",
+                "branchName": ""
+              },
+              {
+                "title": "Google Cloud Messaging Notifier",
+                "buildConfigurationId": "GCMNotifier_RunTests",
+                "branchName": "default"
+              },
+              {
+                "title": "NuGet Support for 2018.2.x",
+                "buildConfigurationId": "TeamCityPluginsByJetBrains_NuGet_NuGetSupportFor20182x",
+                "branchName": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
