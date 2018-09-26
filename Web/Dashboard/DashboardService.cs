@@ -62,10 +62,11 @@ namespace BuildMonitor.Web.Dashboard
             {
               Title = buildConfig.Title,
               BranchName = buildConfig.BranchName,
-              Status = buildResult.Status,
-              TriggeredBy = buildResult.TriggeredBy,
               BuildId = buildResult.BuildId,
               BuildNumber = buildResult.BuildNumber,
+              Status = buildResult.Status,
+              TriggeredBy = buildResult.TriggeredBy,
+              LastChangeBy = buildResult.LastChangeBy,
               FinishDateHumanized = this.dateConverter.ConvertToHumanFriendlyString(buildResult.FinishDate, isUtcDate: true)
             };
 

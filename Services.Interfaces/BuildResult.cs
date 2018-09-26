@@ -36,5 +36,10 @@ namespace BuildMonitor.Services.Interfaces
     /// Gets or sets the name of the person or service who initiated the build.
     /// </summary>
     public string TriggeredBy { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the person who authored the last change in the build.
+    /// </summary>
+    public string LastChangeBy { get; set; }
   }
 }

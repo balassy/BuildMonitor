@@ -21,5 +21,7 @@ namespace BuildMonitor.Web.Dashboard.Models
     public string BranchName { get; set; }
 
     public string TriggeredBy { get; set; }
+
+    public string LastChangeBy { get; set; }
   }
 }
