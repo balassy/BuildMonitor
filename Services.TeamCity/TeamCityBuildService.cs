@@ -14,37 +14,48 @@ namespace BuildMonitor.Services.TeamCity
   /// </summary>
   public class TeamCityBuildService : IBuildService
   {
-    public BuildResult GetLastBuildStatus(IConnectionParams connectionParams, string buildConfigurationId, string branchName)
+    private ITeamCityClient client;
+
+    private bool isConnected;
+
+    public void Connect(IConnectionParams connectionParams)
     {
       if (connectionParams == null)
       {
         throw new ArgumentNullException(nameof(connectionParams), "Please specify the connection parameters!");
       }
 
+      this.client = new TeamCityClient(connectionParams.Host, useSsl: true);
+
+      if (String.IsNullOrEmpty(connectionParams.Username))
+      {
+        this.client.ConnectAsGuest();
+      }
+      else
+      {
+        this.client.Connect(connectionParams.Username, connectionParams.Password);
+      }
+
+      this.isConnected = true;
+    }
+
+    public BuildResult GetLastBuildStatus(string buildConfigurationId, string branchName)
+    {
       if (String.IsNullOrEmpty(buildConfigurationId))
       {
         throw new ArgumentNullException(nameof(buildConfigurationId), "Please specify the build configuration ID!");
       }
 
-      ITeamCityClient client = new TeamCityClient(connectionParams.Host, useSsl: true);
+      this.AssertClientConnected();
 
-      if (String.IsNullOrEmpty(connectionParams.Username))
-      {
-        client.ConnectAsGuest();
-      }
-      else
-      {
-        client.Connect(connectionParams.Username, connectionParams.Password);
-      }
-
-      Build build = TeamCityBuildService.GetLastBuild(client, buildConfigurationId, branchName);
+      Build build = this.GetLastBuild(buildConfigurationId, branchName);
 
       if (build == null)
       {
         return null;
       }
 
-      TestResults testResults = TeamCityBuildService.GetTestResults(client, build.Id);
+      TestResults testResults = this.GetTestResults(build.Id);
 
       return new BuildResult
       {
@@ -57,52 +68,6 @@ namespace BuildMonitor.Services.TeamCity
         LastChangeBy = TeamCityBuildService.GetLastChangeBy(build),
         Tests = testResults
       };
-    }
-
-    private static Build GetLastBuild(ITeamCityClient client, string buildConfigurationId, string branchName)
-    {
-      if (client == null)
-      {
-        throw new ArgumentNullException(nameof(client), "Please specify the TeamCity client!");
-      }
-
-      if (String.IsNullOrEmpty(buildConfigurationId))
-      {
-        throw new ArgumentNullException(nameof(buildConfigurationId), "Please specify the build configuration ID!");
-      }
-
-      // Add branch filter if specified.
-      List<string> locatorParams = new List<string>();
-      if (!String.IsNullOrEmpty(branchName))
-      {
-        locatorParams.Add($"branch:{branchName}");
-      }
-
-      // Define the list of fields that should be returned by the TeamCity API.
-      BuildField buildFields = BuildField.WithFields(
-        id: true,
-        number: true,
-        finishDate: true,
-        status: true,
-        statusText: true,
-        triggered: TriggeredField.WithFields(
-          type: true,
-          details: true,
-          userField: UserField.WithFields(
-            name: true)),
-        changes: ChangesField.WithFields(changeField: ChangeField.WithFields(
-          id: true,
-          date: true,
-          username: true,
-          userField: UserField.WithFields(
-            name: true,
-            username: true))));
-      BuildsField buildsFields = BuildsField.WithFields(buildFields);
-
-      // Get the last build of the specified build configuration on the given branch.
-      Build build = client.Builds.GetFields(buildsFields.ToString()).LastBuildByBuildConfigId(buildConfigurationId, locatorParams);
-
-      return build;
     }
 
     private static BuildStatus GetStatus(Build build)
@@ -149,20 +114,60 @@ namespace BuildMonitor.Services.TeamCity
       return null;
     }
 
-    private static TestResults GetTestResults(ITeamCityClient client, string buildId)
+    private Build GetLastBuild(string buildConfigurationId, string branchName)
     {
-      if (client == null)
+      if (String.IsNullOrEmpty(buildConfigurationId))
       {
-        throw new ArgumentNullException(nameof(client), "Please specify the TeamCity client!");
+        throw new ArgumentNullException(nameof(buildConfigurationId), "Please specify the build configuration ID!");
       }
 
+      this.AssertClientConnected();
+
+      // Add branch filter if specified.
+      List<string> locatorParams = new List<string>();
+      if (!String.IsNullOrEmpty(branchName))
+      {
+        locatorParams.Add($"branch:{branchName}");
+      }
+
+      // Define the list of fields that should be returned by the TeamCity API.
+      BuildField buildFields = BuildField.WithFields(
+        id: true,
+        number: true,
+        finishDate: true,
+        status: true,
+        statusText: true,
+        triggered: TriggeredField.WithFields(
+          type: true,
+          details: true,
+          userField: UserField.WithFields(
+            name: true)),
+        changes: ChangesField.WithFields(changeField: ChangeField.WithFields(
+          id: true,
+          date: true,
+          username: true,
+          userField: UserField.WithFields(
+            name: true,
+            username: true))));
+      BuildsField buildsFields = BuildsField.WithFields(buildFields);
+
+      // Get the last build of the specified build configuration on the given branch.
+      Build build = this.client.Builds.GetFields(buildsFields.ToString()).LastBuildByBuildConfigId(buildConfigurationId, locatorParams);
+
+      return build;
+    }
+
+    private TestResults GetTestResults(string buildId)
+    {
       if (String.IsNullOrEmpty(buildId))
       {
         throw new ArgumentNullException(nameof(buildId), "Please specify the build ID!");
       }
 
+      this.AssertClientConnected();
+
       TestResults results = new TestResults();
-      List<Property> statistics = client.Statistics.GetByBuildId(buildId);
+      List<Property> statistics = this.client.Statistics.GetByBuildId(buildId);
       foreach (Property property in statistics)
       {
         if (property.Name == "PassedTestCount")
@@ -182,6 +187,14 @@ namespace BuildMonitor.Services.TeamCity
       }
 
       return results;
+    }
+
+    private void AssertClientConnected()
+    {
+      if (!this.isConnected)
+      {
+        throw new InvalidOperationException("Please connect before doing this action!");
+      }
     }
   }
 }

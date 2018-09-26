@@ -10,13 +10,20 @@ namespace BuildMonitor.Web.UnitTests
   {
     public static BuildResult GetBuildResult()
     {
-      var result = new Faker<BuildResult>("en")
+      var testResult = new Faker<TestResults>()
+        .RuleFor(r => r.PassedCount, f => f.Random.Int())
+        .RuleFor(r => r.FailedCount, f => f.Random.Int())
+        .RuleFor(r => r.IgnoredCount, f => f.Random.Int());
+
+      var buildResult = new Faker<BuildResult>("en")
         .RuleFor(r => r.BranchName, f => f.Lorem.Word())
         .RuleFor(r => r.BuildId, f => f.Lorem.Word())
         .RuleFor(r => r.Status, f => f.PickRandom<BuildStatus>())
         .RuleFor(r => r.TriggeredBy, f => f.Person.FullName)
-        .RuleFor(r => r.FinishDate, f => f.Date.Recent());
-      return result.Generate();
+        .RuleFor(r => r.FinishDate, f => f.Date.Recent())
+        .RuleFor(r => r.Tests, f => testResult.Generate());
+
+      return buildResult.Generate();
     }
 
     public static DashboardConfig GetDashboardConfig()

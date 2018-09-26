@@ -90,12 +90,14 @@ namespace BuildMonitor.Web.UnitTests
           foreach (var buildConfig in groupConfig.Builds)
           {
             BuildResult buildResult = TestDataGenerator.GetBuildResult();
-            this.buildServiceMock.Setup(m => m.GetLastBuildStatus(It.IsAny<IConnectionParams>(), buildConfig.BuildConfigurationId, buildConfig.BranchName)).Returns(buildResult);
+            this.buildServiceMock.Setup(m => m.GetLastBuildStatus(buildConfig.BuildConfigurationId, buildConfig.BranchName)).Returns(buildResult);
             buildResults.Add($"{groupConfig.Title}-{buildConfig.Title}-{buildConfig.BuildConfigurationId}-{buildConfig.BranchName}", buildResult);
           }
         }
 
         ActionResult<DashboardModel> result = this.service.GetBuildResults(testDashboardConfig);
+
+        this.buildServiceMock.Verify(m => m.Connect(It.IsAny<IConnectionParams>()), Times.Once());
 
         DashboardModel dashboardModel = result.Value;
         Assert.AreEqual(testDashboardConfig.Title, dashboardModel.Title);
@@ -117,6 +119,9 @@ namespace BuildMonitor.Web.UnitTests
             Assert.AreEqual(buildResult.BuildId, gaugeModel.BuildId);
             Assert.AreEqual(buildResult.BuildNumber, gaugeModel.BuildNumber);
             Assert.AreNotEqual(buildResult.FinishDate.ToString(CultureInfo.CurrentCulture), gaugeModel.FinishDateHumanized, "The finish date must be humanized!");
+            Assert.AreEqual(buildResult.Tests.PassedCount, gaugeModel.PassedTestCount);
+            Assert.AreEqual(buildResult.Tests.FailedCount, gaugeModel.FailedTestCount);
+            Assert.AreEqual(buildResult.Tests.IgnoredCount, gaugeModel.IgnoredTestCount);
           }
         }
       }

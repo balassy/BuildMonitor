@@ -38,6 +38,8 @@ namespace BuildMonitor.Web.Dashboard
         throw new ArgumentNullException(nameof(dashboardConfig), "Please specify the dashboard configuration!");
       }
 
+      this.buildService.Connect(this.config.Connection);
+
       DashboardModel dashboardResultModel = new DashboardModel
       {
         Title = dashboardConfig.Title,
@@ -54,7 +56,7 @@ namespace BuildMonitor.Web.Dashboard
 
         foreach (var buildConfig in groupConfig.Builds)
         {
-          BuildResult buildResult = this.buildService.GetLastBuildStatus(this.config.Connection, buildConfig.BuildConfigurationId, buildConfig.BranchName);
+          BuildResult buildResult = this.buildService.GetLastBuildStatus(buildConfig.BuildConfigurationId, buildConfig.BranchName);
 
           if (buildResult != null)
           {
