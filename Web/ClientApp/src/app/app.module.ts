@@ -9,16 +9,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-    ])
+      { path: '', component: DashboardComponent, pathMatch: 'full' },
+    ]),
     BrowserAnimationsModule,
     MatGridListModule,
     MatCardModule,
