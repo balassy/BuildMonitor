@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
 import { Dashboard, GaugeGroup, Gauage} from './dashboard.types';
 
@@ -7,10 +7,13 @@ import { Dashboard, GaugeGroup, Gauage} from './dashboard.types';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   public dashboard: Dashboard;
 
   constructor(private _dashboardService: DashboardService) {
-    this.dashboard = this._dashboardService.GetDashBoard('TODO');
+  }
+
+  public async ngOnInit() {
+    this.dashboard = await this._dashboardService.GetDashBoard('oss');
   }
 }

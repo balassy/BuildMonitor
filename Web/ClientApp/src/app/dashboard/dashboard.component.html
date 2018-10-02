@@ -1,8 +1,8 @@
 <div class="grid-container">
-  <h1 class="mat-h1">{{dashboard.title}}</h1>
+  <h1 class="mat-h1">{{dashboard?.title}}</h1>
 
   <section *ngFor="let group of dashboard?.groups">
-    <h2>{{group.title}}</h2>
+    <h2 class="mat-h2">{{group.title}}</h2>
 
     <mat-grid-list cols="4" rowHeight="150px">
       <mat-grid-tile *ngFor="let gauge of group?.gauges" [colspan]="1" [rowspan]="1">
