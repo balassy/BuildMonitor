@@ -21,3 +21,8 @@ export interface Dashboard {
   title: string;
   groups: GaugeGroup[];
 }
+
+export interface DashboardLink {
+  title: string;
+  slug: string;
+}

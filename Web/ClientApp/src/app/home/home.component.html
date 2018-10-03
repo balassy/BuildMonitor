@@ -1,0 +1,13 @@
+<h1 class="mat-h1">
+  BuildMonitor
+</h1>
+
+<p>Please select a dashboard:</p>
+
+<ul>
+  <li *ngFor="let dashboard of dashboards | async">
+    <a [routerLink]="['/dashboards', dashboard.slug]">
+      {{dashboard.title}}
+    </a>
+  </li>
+</ul>

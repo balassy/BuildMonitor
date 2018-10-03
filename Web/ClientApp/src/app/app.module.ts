@@ -10,18 +10,22 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: DashboardComponent, pathMatch: 'full' },
+      { path: '', component: HomeComponent },
+      { path: 'dashboards/:slug', component: DashboardComponent },
+      { path: '**', redirectTo: '', pathMatch: 'full'}
     ]),
     BrowserAnimationsModule,
     MatGridListModule,

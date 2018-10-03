@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from './dashboard.service';
-import { Dashboard, GaugeGroup, Gauage} from './dashboard.types';
+import { DashboardService } from '../shared/services/dashboard/dashboard.service';
+import { Dashboard } from '../shared/services/dashboard/dashboard.types';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'dashboard',
@@ -8,12 +10,15 @@ import { Dashboard, GaugeGroup, Gauage} from './dashboard.types';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  public dashboard: Dashboard;
+  public dashboard: Observable<Dashboard>;
 
-  constructor(private _dashboardService: DashboardService) {
+  constructor(
+    private _route: ActivatedRoute,
+    private _dashboardService: DashboardService) {
   }
 
-  public async ngOnInit() {
-    this.dashboard = await this._dashboardService.GetDashBoard('oss');
+  public ngOnInit() {
+    const slug: string = this._route.snapshot.paramMap.get('slug');
+    this.dashboard = this._dashboardService.GetDashBoard(slug);
   }
 }
