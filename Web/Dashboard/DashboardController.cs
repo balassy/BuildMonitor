@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BuildMonitor.Web.Dashboard
 {
-  [Route("api/[controller]")]
   [ApiController]
+  [Route("api/dashboards")]
   [Produces("application/json")]
   public class DashboardController : ControllerBase
   {

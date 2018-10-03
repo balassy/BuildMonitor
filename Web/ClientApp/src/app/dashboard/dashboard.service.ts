@@ -14,7 +14,7 @@ export class DashboardService {
       throw new Error('Please specify the slug!');
     }
 
-    const url: string = `/api/dashboard/${slug}`;
+    const url: string = `/api/dashboards/${slug}`;
     return this._http.get<Dashboard>(url).toPromise();
   }
 }
