@@ -21,6 +21,11 @@ namespace BuildMonitor.Web.Dashboard
       this.dateConverter = dateConverter ?? throw new ArgumentNullException(nameof(dateConverter), "Please specify the date converter for the dashboard controller!");
     }
 
+    public IReadOnlyList<DashboardConfig> GetDashboards()
+    {
+      return this.config.Dashboards;
+    }
+
     public DashboardConfig GetDashboardConfig(string slug)
     {
       if (String.IsNullOrEmpty(slug))
