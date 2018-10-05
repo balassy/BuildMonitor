@@ -5,7 +5,7 @@ html, body {
 }
 
 body {
-  margin: 0;
+  margin: 20px;
   font-family: 'Roboto', sans-serif;
   background-color: #ececec;
 }

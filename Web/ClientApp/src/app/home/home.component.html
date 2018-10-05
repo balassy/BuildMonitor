@@ -1,18 +1,16 @@
-<div class="home">
-  <h1 class="mat-h1">
-    BuildMonitor
-  </h1>
+<h1 class="mat-h1">
+  BuildMonitor
+</h1>
 
-  <p>Please select a dashboard:</p>
+<p>Please select a dashboard:</p>
 
-  <mat-list>
-    <mat-list-item *ngFor="let dashboard of dashboards | async">
-      <mat-icon matListIcon>dashboard</mat-icon>
-      <h3 matLine>
-        <a [routerLink]="['/dashboards', dashboard.slug]">
-          {{dashboard.title}}
-        </a>
-      </h3>
-    </mat-list-item>
-  </mat-list>
-</div>
+<mat-list>
+  <mat-list-item *ngFor="let dashboard of dashboards | async">
+    <mat-icon matListIcon>dashboard</mat-icon>
+    <h3 matLine>
+      <a [routerLink]="['/dashboards', dashboard.slug]">
+        {{dashboard.title}}
+      </a>
+    </h3>
+  </mat-list-item>
+</mat-list>
