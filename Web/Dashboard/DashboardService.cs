@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using BuildMonitor.Services.Interfaces;
 using BuildMonitor.Web.Configuration;
@@ -86,6 +87,8 @@ namespace BuildMonitor.Web.Dashboard
 
         dashboardResultModel.Groups.Add(gaugeGroupModel);
       }
+
+      dashboardResultModel.TimestampUtc = DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture);
 
       return dashboardResultModel;
     }

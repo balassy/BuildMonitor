@@ -9,5 +9,7 @@ namespace BuildMonitor.Web.Dashboard.Models
 
     [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Required for JSON serialization.")]
     public List<GaugeGroupModel> Groups { get; set; }
+
+    public string TimestampUtc { get; set; }
   }
 }

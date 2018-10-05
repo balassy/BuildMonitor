@@ -20,6 +20,7 @@ export interface GaugeGroup {
 export interface Dashboard {
   title: string;
   groups: GaugeGroup[];
+  timestampUtc: string;
 }
 
 export interface DashboardLink {
