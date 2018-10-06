@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dashboards = this._service.GetDashboards();
+    this.dashboards = this._service.getDashboards();
   }
 
 }
