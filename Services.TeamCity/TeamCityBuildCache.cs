@@ -25,12 +25,27 @@ namespace BuildMonitor.Services.TeamCity
         throw new ArgumentNullException(nameof(factory), "Please specify the factory method to create new cache item!");
       }
 
-      // TODO: https://tpodolak.com/blog/2017/12/13/asp-net-core-memorycache-getorcreate-calls-factory-method-multiple-times/
-      return this.cache.GetOrCreate(buildId, cacheEntry =>
+      // Not using IMemoryCache.GetOrCreate to avoid multiple calls of the factory method.
+      // Read more in the Additional Notes on https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory?view=aspnetcore-2.1.
+      // Solution from here: https://tpodolak.com/blog/2017/12/13/asp-net-core-memorycache-getorcreate-calls-factory-method-multiple-times/
+      if (this.cache.TryGetValue(buildId, out TestResults result))
       {
-        cacheEntry.SetSlidingExpiration(new TimeSpan(24, 0, 0));
-        return factory();
-      });
+        return result;
+      }
+
+      lock (TypeLock<TestResults>.Lock)
+      {
+        if (this.cache.TryGetValue(buildId, out result))
+        {
+          return result;
+        }
+
+        result = factory();
+        TimeSpan slidingExpiration = new TimeSpan(24, 0, 0);
+        this.cache.Set(buildId, result, slidingExpiration);
+
+        return result;
+      }
     }
   }
 }
