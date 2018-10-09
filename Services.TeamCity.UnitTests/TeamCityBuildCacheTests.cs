@@ -44,14 +44,14 @@ namespace BuildMonitor.Services.TeamCity.UnitTests
       [TestMethod]
       public void ShouldThrowIfBuildIdIsNotSpecified()
       {
-        Assert.ThrowsException<ArgumentNullException>(() => this.cache.GetOrAdd(null, null));
+        Assert.ThrowsException<ArgumentNullException>(() => this.cache.GetOrAddTestResults(null, null));
       }
 
       [TestMethod]
       public void ShouldThrowIfFactoryMethodIsNotSpecified()
       {
         string buildId = TestDataGenerator.GetBuildId();
-        Assert.ThrowsException<ArgumentNullException>(() => this.cache.GetOrAdd(buildId, null));
+        Assert.ThrowsException<ArgumentNullException>(() => this.cache.GetOrAddTestResults(buildId, null));
       }
 
       [TestMethod]
@@ -66,7 +66,7 @@ namespace BuildMonitor.Services.TeamCity.UnitTests
         factoryMock.Setup(f => f()).Returns(new TestResults());
 
         string buildId = TestDataGenerator.GetBuildId();
-        List<Thread> threads = Enumerable.Range(0, 10).Select(_ => new Thread(() => cache.GetOrAdd(buildId, factoryMock.Object))).ToList();
+        List<Thread> threads = Enumerable.Range(0, 10).Select(_ => new Thread(() => cache.GetOrAddTestResults(buildId, factoryMock.Object))).ToList();
         threads.ForEach(thread => thread.Start());
         threads.ForEach(thread => thread.Join());
 

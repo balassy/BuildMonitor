@@ -173,7 +173,7 @@ namespace BuildMonitor.Services.TeamCity
 
       this.AssertClientConnected();
 
-      TestResults results = this.cache.GetOrAdd(buildId, factory: () =>
+      TestResults results = this.cache.GetOrAddTestResults(buildId, factory: () =>
       {
         TestResults newResults = new TestResults();
         List<Property> statistics = this.client.Statistics.GetByBuildId(buildId);

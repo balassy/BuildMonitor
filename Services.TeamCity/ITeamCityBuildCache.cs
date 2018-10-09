@@ -5,6 +5,6 @@ namespace BuildMonitor.Services.TeamCity
 {
   public interface ITeamCityBuildCache
   {
-    TestResults GetOrAdd(string buildId, Func<TestResults> factory);
+    TestResults GetOrAddTestResults(string buildId, Func<TestResults> factory);
   }
 }
