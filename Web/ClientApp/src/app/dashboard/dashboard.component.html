@@ -1,30 +1,35 @@
-<h1 class="mat-h1">
-  <a [routerLink]="['/']">
-    {{(dashboard | async)?.title}}
-  </a>
-</h1>
+<!-- The ng-container is used to avoid multiple Observable subscriptions by the "async" pipe. -->
+<ng-container *ngIf="dashboard | async as d">
+    <h1 class="mat-h1">
+      <a [routerLink]="['/']">
+        {{d.title}}
+      </a>
+    </h1>
 
-<section *ngFor="let group of (dashboard | async)?.groups">
-  <h2 class="mat-h2">▪▪▪ {{group.title}} ▪▪▪</h2>
+    <section *ngFor="let group of d.groups">
+      <h2 class="mat-h2">▪▪▪ {{group.title}} ▪▪▪</h2>
 
-  <mat-grid-list cols="4" rowHeight="150px">
-    <mat-grid-tile *ngFor="let gauge of group?.gauges" [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{gauge.title}}
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>
-            {{gauge.status}} <br>
-            Branch {{gauge.branchName}} <br>
-            Last updated
-            <span *ngIf="!!gauge.lastChangeBy"> by {{gauge.lastChangeBy}}</span>
-            {{gauge.finishDateHumanized}}
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</section>
+      <mat-grid-list cols="4" rowHeight="150px">
+        <mat-grid-tile *ngFor="let gauge of group?.gauges" [colspan]="1" [rowspan]="1">
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                {{gauge.title}}
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content">
+              <div>
+                {{gauge.status}} <br>
+                Branch {{gauge.branchName}} <br>
+                Last updated
+                <span *ngIf="!!gauge.lastChangeBy"> by {{gauge.lastChangeBy}}</span>
+                {{gauge.finishDateHumanized}}
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </section>
+</ng-container>
+
+
