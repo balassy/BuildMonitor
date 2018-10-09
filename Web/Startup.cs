@@ -27,6 +27,7 @@ namespace BuildMonitor.Web
     public void ConfigureServices(IServiceCollection services)
     {
       services
+        .AddMemoryCache()
         .AddMvc()
         .AddJsonOptions(options =>
         {

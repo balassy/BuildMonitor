@@ -14,9 +14,16 @@ namespace BuildMonitor.Services.TeamCity
   /// </summary>
   public class TeamCityBuildService : IBuildService
   {
+    private readonly ITeamCityBuildCache cache;
+
     private ITeamCityClient client;
 
     private bool isConnected;
+
+    public TeamCityBuildService(ITeamCityBuildCache cache)
+    {
+      this.cache = cache ?? throw new ArgumentNullException(nameof(cache), "Please specify the memory cache for the TeamCity build service!");
+    }
 
     public void Connect(IConnectionParams connectionParams)
     {
@@ -166,25 +173,29 @@ namespace BuildMonitor.Services.TeamCity
 
       this.AssertClientConnected();
 
-      TestResults results = new TestResults();
-      List<Property> statistics = this.client.Statistics.GetByBuildId(buildId);
-      foreach (Property property in statistics)
+      TestResults results = this.cache.GetOrAdd(buildId, factory: () =>
       {
-        if (property.Name == "PassedTestCount")
+        TestResults newResults = new TestResults();
+        List<Property> statistics = this.client.Statistics.GetByBuildId(buildId);
+        foreach (Property property in statistics)
         {
-          results.PassedCount = Int32.Parse(property.Value, CultureInfo.InvariantCulture);
-        }
+          if (property.Name == "PassedTestCount")
+          {
+            newResults.PassedCount = Int32.Parse(property.Value, CultureInfo.InvariantCulture);
+          }
 
-        if (property.Name == "FailedTestCount")
-        {
-          results.FailedCount = Int32.Parse(property.Value, CultureInfo.InvariantCulture);
-        }
+          if (property.Name == "FailedTestCount")
+          {
+            newResults.FailedCount = Int32.Parse(property.Value, CultureInfo.InvariantCulture);
+          }
 
-        if (property.Name == "IgnoredTestCount")
-        {
-          results.IgnoredCount = Int32.Parse(property.Value, CultureInfo.InvariantCulture);
+          if (property.Name == "IgnoredTestCount")
+          {
+            newResults.IgnoredCount = Int32.Parse(property.Value, CultureInfo.InvariantCulture);
+          }
         }
-      }
+        return newResults;
+      });
 
       return results;
     }
