@@ -1,6 +1,6 @@
 export interface Gauage {
   title: string;
-  status: string;
+  status: 'Success' | 'Pending' | 'Failed';
   buildId: string;
   buildNumber: string;
   finishDateHumanized: string;

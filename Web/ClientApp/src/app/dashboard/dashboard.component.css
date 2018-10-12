@@ -9,3 +9,11 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.text-success {
+  color: #a9e800;
+}
+
+.text-failure {
+  color: #fb1b45;
+}

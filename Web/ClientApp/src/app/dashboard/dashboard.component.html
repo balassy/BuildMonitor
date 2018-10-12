@@ -19,7 +19,13 @@
             </mat-card-header>
             <mat-card-content class="dashboard-card-content">
               <div>
-                {{gauge.status}} <br>
+                <span [ngClass]="{
+                  'text-success': gauge.status === 'Success',
+                  'text-failure': gauge.status === 'Failed'
+                }">
+                  {{gauge.status}}
+                </span>
+                <br>
                 Branch {{gauge.branchName}} <br>
                 Last updated
                 <span *ngIf="!!gauge.lastChangeBy"> by {{gauge.lastChangeBy}}</span>
