@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Dashboard, DashboardLink } from './dashboard.types';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, timer } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
+import { Dashboard, DashboardLink } from './dashboard.types';
+import { ConfigService } from '../config/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  private readonly POLL_INTERVAL_SECONDS = 15;
-
   private _onUpdatedSource = new Subject<string>();
 
   public onUpdated: Observable<string> = this._onUpdatedSource.asObservable();
 
-  constructor(private _http: HttpClient) {
+  constructor(
+    private _http: HttpClient,
+    private _config: ConfigService) {
   }
 
   public getDashboards(): Observable<DashboardLink[]> {
@@ -28,7 +29,7 @@ export class DashboardService {
     }
 
     // Start immediately, then poll in the specified intervals.
-    return timer(0, this.POLL_INTERVAL_SECONDS * 1000)
+    return timer(0, this._config.pollingIntervalSeconds * 1000)
       .pipe(
         switchMap(_ =>
           this.getDashboard(slug)
