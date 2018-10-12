@@ -31,9 +31,9 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: PublishTestResults@2
-  displayName: 'Running frontend unit tests'
+  displayName: 'Publishing frontend unit test results'
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: '**/TESTS-*.xml'
 
 - task: PublishBuildArtifacts@1
