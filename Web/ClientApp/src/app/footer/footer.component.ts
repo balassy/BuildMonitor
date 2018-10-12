@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  public timestampHumanized: Observable<string>;
+  public timestampUtc: Observable<string>;
 
   constructor(private _dashboardService: DashboardService) {
   }
 
   ngOnInit() {
-    this.timestampHumanized = this._dashboardService.onUpdated;
+    this.timestampUtc = this._dashboardService.onUpdated;
   }
 }

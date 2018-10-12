@@ -4,5 +4,5 @@
   <span>
     <a href="https://github.com/balassy/BuildMonitor">BuildMonitor by György Balássy</a>
   </span>
-  <span style="float:right">{{timestampHumanized | async}}</span>
+  <span style="float:right">{{timestampUtc | async | dateFormat: 'YYYY.MM.DD HH:mm:ss'}}</span>
 </footer>
