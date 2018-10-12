@@ -6,6 +6,9 @@
 # Application-specific configuration files that may contain sensitive data.
 # appconfig.json
 
+# Karma JUnit test reporter output file.
+TESTS*.xml
+
 # User-specific files
 *.suo
 *.user
