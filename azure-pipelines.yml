@@ -30,4 +30,10 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: PublishTestResults@2
+  displayName: 'Running frontend unit tests'
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+
 - task: PublishBuildArtifacts@1
