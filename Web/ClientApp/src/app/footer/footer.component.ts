@@ -3,7 +3,7 @@ import { DashboardService } from '../shared/services/dashboard/dashboard.service
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'bm-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })

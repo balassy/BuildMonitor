@@ -4,7 +4,7 @@ import { DashboardLink } from '../shared/services/dashboard/dashboard.types';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'home',
+  selector: 'bm-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
