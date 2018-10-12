@@ -19,6 +19,6 @@ export class DashboardComponent implements OnInit {
 
   public ngOnInit() {
     const slug: string = this._route.snapshot.paramMap.get('slug');
-    this.dashboard = this._dashboardService.getDashboard(slug);
+    this.dashboard = this._dashboardService.pollDashboard(slug);
   }
 }
