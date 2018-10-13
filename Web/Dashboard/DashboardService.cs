@@ -69,7 +69,7 @@ namespace BuildMonitor.Web.Dashboard
             var gaugeModel = new GaugeModel
             {
               Title = buildConfig.Title,
-              BranchName = buildConfig.BranchName,
+              BranchName = buildResult.BranchName,
               BuildId = buildResult.BuildId,
               BuildNumber = buildResult.BuildNumber,
               Status = buildResult.Status,

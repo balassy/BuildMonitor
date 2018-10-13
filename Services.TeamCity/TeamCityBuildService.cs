@@ -66,7 +66,7 @@ namespace BuildMonitor.Services.TeamCity
 
       return new BuildResult
       {
-        BranchName = branchName,
+        BranchName = String.IsNullOrEmpty(branchName) ? "(default)" : branchName,
         BuildId = build.Id,
         BuildNumber = build.Number,
         FinishDate = build.FinishDate,
