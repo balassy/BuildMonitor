@@ -1,0 +1,17 @@
+@import './src/style-variables.scss';
+
+h1 {
+  font-weight: normal;
+}
+
+mat-icon {
+  color: $color-text-highlight;
+}
+
+.mat-list-item {
+  font-family: $font-family;
+
+  a {
+    color: $color-text-highlight;
+  }
+}

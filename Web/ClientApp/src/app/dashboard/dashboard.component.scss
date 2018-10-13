@@ -1,0 +1,69 @@
+@import './src/style-variables.scss';
+
+.dashboard-title {
+  font-weight: normal;
+}
+
+.group-title {
+  font-weight: normal;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.gauge-list {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: -15px;
+  margin-right: -15px;
+
+  .mat-card {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    font-family: $font-family;
+    background-color: #1c1e22;
+    color: $color-text;
+    border: 1px solid $color-border-dark;
+    padding: 15px;
+    box-shadow: none;
+
+    .mat-card-title {
+      color: #eee;
+      font-size: 30px;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: -8px;
+    }
+
+    .mat-card-content {
+      .gauge-status {
+        font-size: 75px;
+        margin-top: -3px;
+      }
+
+      .gauge-branch {
+        font-size: 20px;
+      }
+
+      .gauge-timestamp {
+        font-size: 14px;
+      }
+
+      .text-highlight {
+        color: $color-text-highlight;
+      }
+
+      .text-success {
+        color: #a9e800;
+      }
+
+      .text-failure {
+        color: #fb1b45;
+      }
+    }
+  }
+}
+
+

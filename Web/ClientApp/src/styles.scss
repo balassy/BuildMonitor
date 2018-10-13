@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import './style-variables.scss';
+
+@font-face {
+  font-family: 'kenzo';
+  src: url('assets/fonts/kenzo.eot');
+  src: url('assets/fonts/kenzo.eot?#iefix') format('embedded-opentype'), url('assets/fonts/kenzo.woff') format('woff'), url('assets/fonts/kenzo.ttf') format('truetype');
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 20px;
+  background-color: $color-background;
+  color: $color-text;
+  font-family: $font-family;
+}
+
+a {
+  color: $color-text;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $color-text-highlight;
+  text-decoration: underline;
+}

@@ -1,35 +1,44 @@
 <!-- The ng-container is used to avoid multiple Observable subscriptions by the "async" pipe. -->
 <ng-container *ngIf="dashboard | async as d">
-    <h1 class="mat-h1">
+    <h1 class="dashboard-title">
       <a [routerLink]="['/']">
         {{d.title}}
       </a>
     </h1>
 
     <section *ngFor="let group of d.groups">
-      <h2 class="mat-h2">▪▪▪ {{group.title}} ▪▪▪</h2>
+      <h2 class="group-title">▪▪▪ {{group.title}} ▪▪▪</h2>
 
-      <mat-grid-list cols="4" rowHeight="150px">
+      <mat-grid-list class="gauge-list" cols="4" rowHeight="195px">
         <mat-grid-tile *ngFor="let gauge of group?.gauges" [colspan]="1" [rowspan]="1">
-          <mat-card class="dashboard-card">
+          <mat-card>
             <mat-card-header>
               <mat-card-title>
                 {{gauge.title}}
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
-              <div>
-                <span [ngClass]="{
-                  'text-success': gauge.status === 'Success',
-                  'text-failure': gauge.status === 'Failed'
-                }">
-                  {{gauge.status}}
+            <mat-card-content>
+              <div [ngSwitch]="gauge.status" class="gauge-status">
+                <div *ngSwitchCase="'Success'" class="text-success">OK</div>
+                <div *ngSwitchCase="'Failed'" class="text-failure">Failed</div>
+              </div>
+              <div class="gauge-branch">
+                Branch
+                <span class="text-highlight">
+                  {{gauge.branchName}}
                 </span>
-                <br>
-                Branch {{gauge.branchName}} <br>
+              </div>
+              <div class="gauge-timestamp">
                 Last updated
-                <span *ngIf="!!gauge.lastChangeBy"> by {{gauge.lastChangeBy}}</span>
-                {{gauge.finishDateHumanized}}
+                <span *ngIf="!!gauge.lastChangeBy">
+                  by
+                  <span class="text-highlight">
+                    {{gauge.lastChangeBy}}
+                  </span>
+                </span>
+                <span class="text-highlight">
+                  {{gauge.finishDateHumanized}}
+                </span>
               </div>
             </mat-card-content>
           </mat-card>

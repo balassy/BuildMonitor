@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'bm-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
   public timestampUtc: Observable<string>;
