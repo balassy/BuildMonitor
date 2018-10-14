@@ -14,9 +14,9 @@ namespace BuildMonitor.Services.Interfaces
     Success,
 
     /// <summary>
-    /// The build is still running.
+    /// The status is pending, because the build is still running.
     /// </summary>
-    Pending,
+    Running,
 
     /// <summary>
     /// The build is broken.

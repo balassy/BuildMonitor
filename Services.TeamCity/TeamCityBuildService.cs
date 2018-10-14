@@ -79,7 +79,11 @@ namespace BuildMonitor.Services.TeamCity
 
     private static BuildStatus GetStatus(Build build)
     {
-      return build.Status.Equals("SUCCESS", StringComparison.OrdinalIgnoreCase) ? BuildStatus.Success : BuildStatus.Failed;
+      return build.Running
+        ? BuildStatus.Running
+        : build.Status.Equals("SUCCESS", StringComparison.OrdinalIgnoreCase)
+          ? BuildStatus.Success
+          : BuildStatus.Failed;
     }
 
     private static string GetTriggeredBy(Build build)

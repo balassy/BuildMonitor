@@ -62,8 +62,26 @@
       .text-failure {
         color: #fb1b45;
       }
+
+      .text-running {
+        animation-name: running-pulsate;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+      }
     }
   }
 }
 
+@keyframes running-pulsate {
+  0% {
+    color: #CFC291;
+  }
 
+  50% {
+    color: #FFF6C5;
+  }
+
+  100% {
+    color: #CFC291;
+  }
+}

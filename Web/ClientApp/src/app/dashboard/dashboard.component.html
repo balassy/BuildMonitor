@@ -21,6 +21,7 @@
               <div [ngSwitch]="gauge.status" class="gauge-status">
                 <div *ngSwitchCase="'Success'" class="text-success">OK</div>
                 <div *ngSwitchCase="'Failed'" class="text-failure">Failed</div>
+                <div *ngSwitchCase="'Running'" class="text-running">Running</div>
               </div>
               <div class="gauge-branch">
                 Branch
