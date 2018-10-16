@@ -64,6 +64,10 @@ namespace BuildMonitor.Web.Dashboard
         {
           BuildResult buildResult = this.buildService.GetLastBuildStatus(buildConfig.BuildConfigurationId, buildConfig.BranchName);
 
+          DateTime finishDate = buildResult.Status == BuildStatus.Running
+            ? DateTime.Now
+            : buildResult.FinishDate;
+
           if (buildResult != null)
           {
             var gaugeModel = new GaugeModel
@@ -75,7 +79,7 @@ namespace BuildMonitor.Web.Dashboard
               Status = buildResult.Status,
               TriggeredBy = buildResult.TriggeredBy,
               LastChangeBy = buildResult.LastChangeBy,
-              FinishDateHumanized = this.dateConverter.ConvertToHumanFriendlyString(buildResult.FinishDate, isUtcDate: false),
+              FinishDateHumanized = this.dateConverter.ConvertToHumanFriendlyString(finishDate, isUtcDate: false),
               PassedTestCount = buildResult.Tests.PassedCount,
               FailedTestCount = buildResult.Tests.FailedCount,
               IgnoredTestCount = buildResult.Tests.IgnoredCount
