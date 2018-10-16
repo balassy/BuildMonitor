@@ -79,7 +79,7 @@ namespace BuildMonitor.Services.TeamCity
 
     private static BuildStatus GetStatus(Build build)
     {
-      return build.Running
+      return build.State.Equals("running", StringComparison.OrdinalIgnoreCase)
         ? BuildStatus.Running
         : build.Status.Equals("SUCCESS", StringComparison.OrdinalIgnoreCase)
           ? BuildStatus.Success
