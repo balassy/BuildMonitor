@@ -134,8 +134,12 @@ namespace BuildMonitor.Services.TeamCity
 
       this.AssertClientConnected();
 
-      // Add branch filter if specified.
       List<string> locatorParams = new List<string>();
+
+      // Ensure that running builds are also included.
+      locatorParams.Add("running:any");
+
+      // Add branch filter if specified.
       if (!String.IsNullOrEmpty(branchName))
       {
         locatorParams.Add($"branch:{branchName}");
