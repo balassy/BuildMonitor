@@ -145,6 +145,8 @@ namespace BuildMonitor.Services.TeamCity
       BuildField buildFields = BuildField.WithFields(
         id: true,
         number: true,
+        href: true,
+        webUrl: true,
         finishDate: true,
         status: true,
         statusText: true,
