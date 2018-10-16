@@ -152,6 +152,7 @@ namespace BuildMonitor.Services.TeamCity
         href: true,
         webUrl: true,
         finishDate: true,
+        state: true,
         status: true,
         statusText: true,
         triggered: TriggeredField.WithFields(
