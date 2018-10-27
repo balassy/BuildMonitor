@@ -7,6 +7,7 @@
         "groups": [
           {
             "title": "First Group A",
+            "columnCount": 4,
             "builds": [
               {
                 "title": "Build A",
@@ -22,6 +23,7 @@
           },
           {
             "title": "First Group C",
+            "columnCount": 4,
             "builds": [
               {
                 "title": "Build D",
@@ -43,6 +45,7 @@
         "groups": [
           {
             "title": "Second Group F",
+            "columnCount": 4,
             "builds": [
               {
                 "title": "Build G",
@@ -58,6 +61,7 @@
           },
           {
             "title": "First Group I",
+            "columnCount": 4,
             "builds": [
               {
                 "title": "Build J",

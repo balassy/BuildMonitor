@@ -9,7 +9,7 @@
     <section *ngFor="let group of d.groups">
       <h2 class="group-title">▪▪▪ {{group.title}} ▪▪▪</h2>
 
-      <mat-grid-list class="gauge-list" cols="4" rowHeight="195px">
+      <mat-grid-list class="gauge-list" cols="{{group.columnCount}}" rowHeight="195px">
         <mat-grid-tile *ngFor="let gauge of group?.gauges" [colspan]="1" [rowspan]="1">
           <mat-card>
             <mat-card-header>

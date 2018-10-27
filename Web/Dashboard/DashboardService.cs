@@ -57,6 +57,7 @@ namespace BuildMonitor.Web.Dashboard
         var gaugeGroupModel = new GaugeGroupModel
         {
           Title = groupConfig.Title,
+          ColumnCount = groupConfig.ColumnCount,
           Gauges = new List<GaugeModel>()
         };
 

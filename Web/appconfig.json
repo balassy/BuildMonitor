@@ -8,6 +8,7 @@
         "groups": [
           {
             "title": "Eclipse",
+            "columnCount":  3,
             "builds": [
               {
                 "title": "Check Style",
@@ -28,6 +29,7 @@
           },
           {
             "title": "Storybook",
+            "columnCount": 3,
             "builds": [
               {
                 "title": "Angular",
@@ -48,6 +50,7 @@
           },
           {
             "title": "EasyHttp",
+            "columnCount": 2,
             "builds": [
               {
                 "title": "PR Build",
@@ -69,6 +72,7 @@
         "groups": [
           {
             "title": "TeamCity Plugins by JetBrains",
+            "columnCount": 4,
             "builds": [
               {
                 "title": ".NET CLI for 2018.1.x",

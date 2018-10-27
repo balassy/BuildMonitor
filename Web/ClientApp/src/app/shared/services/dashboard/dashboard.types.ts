@@ -14,6 +14,7 @@ export interface Gauage {
 
 export interface GaugeGroup {
   title: string;
+  columnCount: number;
   gauges: Gauage[];
 }
 
