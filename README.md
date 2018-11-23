@@ -18,7 +18,7 @@ This solution follows the **Clean Architecture** recommended for ASP.NET Core ap
 - [Steve Smith: Architect Modern Web Applications with ASP.NET Core and Azure - free eBook](https://docs.microsoft.com/en-us/dotnet/standard/modern-web-apps-azure-architecture/)
 - [Jason Taylor: Clean Architecture with ASP.NET Core 2.1 - conference presentation](https://www.youtube.com/watch?v=_lwCVE_XgqI)
 
-![Clean Architecture](https://github.com/balassy/BuildMonitor/raw/master/docs/clean-architecture.png "Clean Architecture")
+![Clean Architecture](./docs/clean-architecture.png "Clean Architecture")
 
 ## Got feedback?
 
