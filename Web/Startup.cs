@@ -1,6 +1,7 @@
-using BuildMonitor.Web.Configuration;
+using BuildMonitor.Application.Interfaces;
+using BuildMonitor.Domain.Configuration;
+using BuildMonitor.Persistence.Configuration;
 using BuildMonitor.Web.Dashboard;
-using BuildMonitor.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,6 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using TeamCity = BuildMonitor.Services.TeamCity;
 
 namespace BuildMonitor.Web
 {
@@ -90,9 +90,9 @@ namespace BuildMonitor.Web
 
       // Set up Dependency Injection.
       services.AddTransient<IDashboardService, DashboardService>();
-      services.AddSingleton<IDateConverter, HumanizedDateConverter>();
 
-      TeamCity.Startup.Configure(services);
+      Application.Startup.Configure(services);
+      Infrastructure.Startup.Configure(services);
     }
 
 #pragma warning restore CA1822 // MarkMembersAsStatic

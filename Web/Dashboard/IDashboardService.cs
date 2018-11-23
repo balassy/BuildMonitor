@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BuildMonitor.Web.Configuration;
+using BuildMonitor.Domain.Configuration;
 using BuildMonitor.Web.Dashboard.Models;
 
 namespace BuildMonitor.Web.Dashboard

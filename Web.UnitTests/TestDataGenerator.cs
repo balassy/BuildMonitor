@@ -1,8 +1,7 @@
 ﻿using System.Globalization;
-using System.Linq;
 using Bogus;
-using BuildMonitor.Services.Interfaces;
-using BuildMonitor.Web.Configuration;
+using BuildMonitor.Domain.Configuration;
+using BuildMonitor.Domain.Entities;
 
 namespace BuildMonitor.Web.UnitTests
 {
@@ -10,7 +9,7 @@ namespace BuildMonitor.Web.UnitTests
   {
     public static BuildResult GetBuildResult()
     {
-      var testResult = new Faker<TestResults>()
+      var testResult = new Faker<TestRunResult>()
         .RuleFor(r => r.PassedCount, f => f.Random.Int())
         .RuleFor(r => r.FailedCount, f => f.Random.Int())
         .RuleFor(r => r.IgnoredCount, f => f.Random.Int());
@@ -24,6 +23,15 @@ namespace BuildMonitor.Web.UnitTests
         .RuleFor(r => r.Tests, f => testResult.Generate());
 
       return buildResult.Generate();
+    }
+
+    public static ConnectionConfig GetConnectionConfig()
+    {
+      return new Faker<ConnectionConfig>()
+        .RuleFor(r => r.Host, f => f.Internet.DomainName())
+        .RuleFor(r => r.Username, f => f.Internet.UserName())
+        .RuleFor(r => r.Password, f => f.Internet.Password())
+        .Generate();
     }
 
     public static DashboardConfig GetDashboardConfig()

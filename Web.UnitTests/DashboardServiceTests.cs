@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
-using BuildMonitor.Services.Interfaces;
-using BuildMonitor.Web.Configuration;
+using BuildMonitor.Application.Interfaces;
+using BuildMonitor.Domain.Configuration;
+using BuildMonitor.Domain.Entities;
+using BuildMonitor.Domain.ValueObjects;
 using BuildMonitor.Web.Dashboard;
 using BuildMonitor.Web.Dashboard.Models;
-using BuildMonitor.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -26,6 +26,8 @@ namespace BuildMonitor.Web.UnitTests
     {
       this.buildServiceMock = new Mock<IBuildService>();
       this.configServiceMock = new Mock<IAppConfigService>();
+      this.configServiceMock.Setup(m => m.Connection).Returns(TestDataGenerator.GetConnectionConfig());
+
       var dateConverterMock = new Mock<IDateConverter>();
       dateConverterMock.Setup(m => m.ConvertToHumanFriendlyString(It.IsAny<DateTime>(), It.IsAny<bool>())).Returns(TestDataGenerator.GetFinishDateHumanized());
 
@@ -98,7 +100,7 @@ namespace BuildMonitor.Web.UnitTests
 
         ActionResult<DashboardModel> result = this.service.GetBuildResults(testDashboardConfig);
 
-        this.buildServiceMock.Verify(m => m.Connect(It.IsAny<IConnectionParams>()), Times.Once());
+        this.buildServiceMock.Verify(m => m.Connect(It.IsAny<BuildServerConnection>()), Times.Once());
 
         DashboardModel dashboardModel = result.Value;
         Assert.AreEqual(testDashboardConfig.Title, dashboardModel.Title);

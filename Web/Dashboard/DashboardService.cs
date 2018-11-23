@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using BuildMonitor.Services.Interfaces;
-using BuildMonitor.Web.Configuration;
+using BuildMonitor.Application.Interfaces;
+using BuildMonitor.Domain.Configuration;
+using BuildMonitor.Domain.Entities;
+using BuildMonitor.Domain.ValueObjects;
 using BuildMonitor.Web.Dashboard.Models;
-using BuildMonitor.Web.Services;
 
 namespace BuildMonitor.Web.Dashboard
 {
@@ -20,6 +21,11 @@ namespace BuildMonitor.Web.Dashboard
       this.buildService = buildService ?? throw new ArgumentNullException(nameof(buildService), "Please specify the build service for the dashboard controller!");
       this.config = config ?? throw new ArgumentNullException(nameof(config), "Please specify the application configuration for the dashboard controller!");
       this.dateConverter = dateConverter ?? throw new ArgumentNullException(nameof(dateConverter), "Please specify the date converter for the dashboard controller!");
+
+      if (this.config.Connection == null)
+      {
+        throw new ArgumentNullException(nameof(config), "Please specify the connection parameters in the application configuration!");
+      }
     }
 
     public IReadOnlyList<DashboardConfig> GetDashboards()
@@ -44,7 +50,8 @@ namespace BuildMonitor.Web.Dashboard
         throw new ArgumentNullException(nameof(dashboardConfig), "Please specify the dashboard configuration!");
       }
 
-      this.buildService.Connect(this.config.Connection);
+      BuildServerConnection connection = new BuildServerConnection(this.config.Connection.Host, this.config.Connection.Username, this.config.Connection.Password);
+      this.buildService.Connect(connection);
 
       DashboardModel dashboardResultModel = new DashboardModel
       {

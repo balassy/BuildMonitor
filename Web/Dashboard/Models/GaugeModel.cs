@@ -1,5 +1,4 @@
-﻿using System;
-using BuildMonitor.Services.Interfaces;
+﻿using BuildMonitor.Domain.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 

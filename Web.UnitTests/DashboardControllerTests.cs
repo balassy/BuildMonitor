@@ -1,5 +1,5 @@
 ﻿using System;
-using BuildMonitor.Web.Configuration;
+using BuildMonitor.Domain.Configuration;
 using BuildMonitor.Web.Dashboard;
 using BuildMonitor.Web.Dashboard.Models;
 using Microsoft.AspNetCore.Mvc;

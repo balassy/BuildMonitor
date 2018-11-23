@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>BuildMonitor.Infrastructure</AssemblyName>
+    <Product>BuildMonitor</Product>
+    <Authors>György Balássy (https://linkedin.com/in/balassy)</Authors>
+    <Copyright>(C) György Balássy 2018 (https://linkedin.com/in/balassy)</Copyright>
+    <RepositoryUrl>https://github.com/balassy/BuildMonitor.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/balassy/BuildMonitor</PackageProjectUrl>
+    <NeutralLanguage>English (United States)</NeutralLanguage>
+    <PackageTags>build, monitor, dashboard, TeamCity</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\BuildMonitor.snk</AssemblyOriginatorKeyFile>
+    <RootNamespace>BuildMonitor.Infrastructure</RootNamespace>    
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
+    <PackageReference Include="StrongNamer" Version="0.0.8" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+    <PackageReference Include="TeamCitySharp-forked-mavezeau" Version="1.0.62" />
+  </ItemGroup>
+  
+  <PropertyGroup> 
+     <CodeAnalysisRuleSet>$(SolutionDir)\BuildMonitor.ruleset</CodeAnalysisRuleSet> 
+     <Features>IOperation</Features> 
+     <NoWarn>CS8002</NoWarn>   
+  </PropertyGroup>    
+
+  <ItemGroup>    
+     <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />  
+  </ItemGroup>    
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>    
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.caching.abstractions\2.1.1\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>  
+
+</Project>

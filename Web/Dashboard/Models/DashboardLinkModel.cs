@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BuildMonitor.Web.Dashboard.Models
+﻿namespace BuildMonitor.Web.Dashboard.Models
 {
   public class DashboardLinkModel
   {
