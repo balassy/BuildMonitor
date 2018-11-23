@@ -90,6 +90,7 @@ namespace BuildMonitor.Web.UnitTests
           foreach (var buildConfig in groupConfig.Builds)
           {
             BuildResult buildResult = TestDataGenerator.GetBuildResult();
+            buildResult.BranchName = buildConfig.BranchName;
             this.buildServiceMock.Setup(m => m.GetLastBuildStatus(buildConfig.BuildConfigurationId, buildConfig.BranchName)).Returns(buildResult);
             buildResults.Add($"{groupConfig.Title}-{buildConfig.Title}-{buildConfig.BuildConfigurationId}-{buildConfig.BranchName}", buildResult);
           }
