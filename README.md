@@ -1,8 +1,10 @@
-# Build Monitor (Work in Progress!)
+# Build Monitor Dashboard
 
 > Dashboard to display the status of your builds from your build server (e.g. TeamCity).
 
 [![Build Status](https://dev.azure.com/balassy/BuildMonitor/_apis/build/status/BuildMonitor%20pipeline)](https://dev.azure.com/balassy/BuildMonitor/_build/latest?definitionId=1)
+
+**NOTE:** This is a work in progress, breaking changes may come at any time!
 
 ## Screenshot
 
@@ -12,6 +14,7 @@
 
 The dashboard is optimized to display the results of multiple build configurations with the following features:
 
+- Multiple dashboards with unique URLs
 - Build configuration name
 - Default branch or a pre-selected branch
 - The name of the user with the last change on the branch
@@ -55,6 +58,16 @@ This solution follows the **Clean Architecture** recommended for ASP.NET Core ap
 - [Jason Taylor: Clean Architecture with ASP.NET Core 2.1 - conference presentation](https://www.youtube.com/watch?v=_lwCVE_XgqI)
 
 ![Clean Architecture](./docs/clean-architecture.png "Clean Architecture")
+
+The **Domain Layer** contains all entities, enums, exceptions, types and logic specific to the domain.
+
+The **Application Layer** contains all application logic. It is dependent on the Domain layer, but has no dependencies on any other layer or project. This layer defines interfaces that are implemented by outside layers. For example the `IBuildService` interface is defined in the Application layer and imlemented by the `TeamCityBuildService` in the Infrastructure layer.
+
+The **Persistence Layer** contains all implementation required to load and store the data for the application, including the configuration.
+
+The **Infrastructure Layer** contains classes for accessing external resources such as file systems, web services, SMTP, etc. These classes are implementing the interfaces defined within the Application layer.
+
+The **Presentation Layer** contains all the user interface logic, in this case both the backend and the browser part.
 
 The layers are implemented in separate projects to ensure correct separation of concerns and clear dependencies, even if this is a basic application and everything could be implemented in a single project, which would speed up the build process.
 
