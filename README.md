@@ -1,15 +1,22 @@
-# BuildMonitor (Work in Progress!)
+# Build Monitor (Work in Progress!)
 
 > Dashboard to display the status of your builds from your build server (e.g. TeamCity).
 
 [![Build Status](https://dev.azure.com/balassy/BuildMonitor/_apis/build/status/BuildMonitor%20pipeline)](https://dev.azure.com/balassy/BuildMonitor/_build/latest?definitionId=1)
 
-## Installation
+## Screenshot
 
-Set the following **environment variables** to specify the connection to your build server:
-- `BUILDMONITOR__HOST`, e.g. `server.example.com:8080`
-- `BUILDMONITOR__USERNAME`, e.g. `myuser`
-- `BUILDMONITOR__PASSWORD`, e.g. `mypassword`
+![Build Monitor Screenshot](./docs/screenshot.png "Build Monitor Screenshot")
+
+## Features
+
+The dashboard is optimized to display the results of multiple build configurations with the following features:
+
+- Build configuration name
+- Default branch or a pre-selected branch
+- The name of the user with the last change on the branch
+- Automatic refresh with a 15 seconds interval
+- Groups (shown as "Eclipse", "Storybook" and "EasyHTTP" in the screenshot above) 
 
 ## Technology highlights
 
@@ -50,6 +57,13 @@ This solution follows the **Clean Architecture** recommended for ASP.NET Core ap
 ![Clean Architecture](./docs/clean-architecture.png "Clean Architecture")
 
 The layers are implemented in separate projects to ensure correct separation of concerns and clear dependencies, even if this is a basic application and everything could be implemented in a single project, which would speed up the build process.
+
+## Installation
+
+Set the following **environment variables** to specify the connection to your build server:
+- `BUILDMONITOR__HOST`, e.g. `server.example.com:8080`
+- `BUILDMONITOR__USERNAME`, e.g. `myuser`
+- `BUILDMONITOR__PASSWORD`, e.g. `mypassword`
 
 ## Got feedback?
 
