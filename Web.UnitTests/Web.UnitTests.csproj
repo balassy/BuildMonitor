@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
@@ -7,10 +7,10 @@
     <RootNamespace>BuildMonitor.Web.UnitTests</RootNamespace>
     
     <AssemblyName>BuildMonitor.Web.UnitTests</AssemblyName>
-    <Authors>Gy�rgy Bal�ssy (https://linkedin.com/in/balassy)</Authors>
-    <Company>Gy�rgy Bal�ssy (https://linkedin.com/in/balassy)</Company>
+    <Authors>György Balássy (https://linkedin.com/in/balassy)</Authors>
+    <Company>György Balássy (https://linkedin.com/in/balassy)</Company>
     <Product>BuildMonitor</Product>
-    <Copyright>(C) Gy�rgy Bal�ssy 2018 (https://linkedin.com/in/balassy)</Copyright>
+    <Copyright>(C) György Balássy 2018 (https://linkedin.com/in/balassy)</Copyright>
     <RepositoryUrl>https://github.com/balassy/BuildMonitor.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/balassy/BuildMonitor</PackageProjectUrl>
