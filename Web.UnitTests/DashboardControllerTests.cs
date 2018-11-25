@@ -1,7 +1,8 @@
 ﻿using System;
+using BuildMonitor.Application.Dashboard;
+using BuildMonitor.Application.Dashboard.Models;
 using BuildMonitor.Domain.Configuration;
-using BuildMonitor.Web.Dashboard;
-using BuildMonitor.Web.Dashboard.Models;
+using BuildMonitor.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

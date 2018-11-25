@@ -1,4 +1,4 @@
-﻿namespace BuildMonitor.Web.Dashboard.Models
+﻿namespace BuildMonitor.Application.Dashboard.Models
 {
   public class DashboardLinkModel
   {

@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace BuildMonitor.Web.Dashboard.Models
+namespace BuildMonitor.Application.Dashboard.Models
 {
   public class GaugeModel
   {

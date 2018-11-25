@@ -1,7 +1,6 @@
 using BuildMonitor.Application.Interfaces;
 using BuildMonitor.Domain.Configuration;
 using BuildMonitor.Persistence.Configuration;
-using BuildMonitor.Web.Dashboard;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -89,8 +88,6 @@ namespace BuildMonitor.Web
       services.AddTransient<IAppConfigService, AppConfigService>();
 
       // Set up Dependency Injection.
-      services.AddTransient<IDashboardService, DashboardService>();
-
       Application.Startup.Configure(services);
       Infrastructure.Startup.Configure(services);
     }

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using BuildMonitor.Application.Dashboard;
+using BuildMonitor.Application.Dashboard.Models;
 using BuildMonitor.Domain.Configuration;
-using BuildMonitor.Web.Dashboard.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuildMonitor.Web.Dashboard
+namespace BuildMonitor.Web.Controllers
 {
   [ApiController]
   [Route("api/dashboards")]

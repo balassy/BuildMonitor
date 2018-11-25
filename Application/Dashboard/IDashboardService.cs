@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using BuildMonitor.Application.Dashboard.Models;
 using BuildMonitor.Domain.Configuration;
-using BuildMonitor.Web.Dashboard.Models;
 
-namespace BuildMonitor.Web.Dashboard
+namespace BuildMonitor.Application.Dashboard
 {
   public interface IDashboardService
   {

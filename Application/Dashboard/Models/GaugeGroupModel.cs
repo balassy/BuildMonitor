@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BuildMonitor.Web.Dashboard.Models
+namespace BuildMonitor.Application.Dashboard.Models
 {
   public class GaugeGroupModel
   {

@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using BuildMonitor.Application.Dashboard;
+using BuildMonitor.Application.Dashboard.Models;
 using BuildMonitor.Application.Interfaces;
 using BuildMonitor.Domain.Configuration;
 using BuildMonitor.Domain.Entities;
 using BuildMonitor.Domain.ValueObjects;
-using BuildMonitor.Web.Dashboard;
-using BuildMonitor.Web.Dashboard.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace BuildMonitor.Web.UnitTests
+namespace BuildMonitor.Application.UnitTests
 {
   [TestClass]
   public class DashboardServiceTests

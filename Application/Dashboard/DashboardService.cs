@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using BuildMonitor.Application.Dashboard.Models;
 using BuildMonitor.Application.Interfaces;
 using BuildMonitor.Domain.Configuration;
 using BuildMonitor.Domain.Entities;
 using BuildMonitor.Domain.ValueObjects;
-using BuildMonitor.Web.Dashboard.Models;
 
-namespace BuildMonitor.Web.Dashboard
+namespace BuildMonitor.Application.Dashboard
 {
   public class DashboardService : IDashboardService
   {
