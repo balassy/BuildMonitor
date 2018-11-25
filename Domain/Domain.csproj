@@ -1,52 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
     <AssemblyName>BuildMonitor.Domain</AssemblyName>
-    <Product>BuildMonitor</Product>
-    <Authors>György Balássy (https://linkedin.com/in/balassy)</Authors>
-    <Copyright>(C) György Balássy 2018 (https://linkedin.com/in/balassy)</Copyright>
-    <RepositoryUrl>https://github.com/balassy/BuildMonitor.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/balassy/BuildMonitor</PackageProjectUrl>
-    <NeutralLanguage>English (United States)</NeutralLanguage>
-    <PackageTags>build, monitor, dashboard, TeamCity</PackageTags>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\BuildMonitor.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>BuildMonitor.Domain</RootNamespace>    
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  
-  <PropertyGroup> 
-     <CodeAnalysisRuleSet>$(SolutionDir)\BuildMonitor.ruleset</CodeAnalysisRuleSet> 
-     <Features>IOperation</Features> 
-     <NoWarn></NoWarn>   
-  </PropertyGroup>    
-
-  <ItemGroup>    
-     <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />  
-  </ItemGroup>  
 
 </Project>
